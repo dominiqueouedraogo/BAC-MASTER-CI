@@ -1,22 +1,45 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: BAC MASTER CI API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication operations
+  - name: users
+    description: User operations
+  - name: courses
+    description: Course operations
+  - name: subjects
+    description: Subject operations
+  - name: lessons
+    description: Lesson operations
+  - name: exercises
+    description: Exercise operations
+  - name: exams
+    description: Past exam operations
+  - name: progress
+    description: User progress tracking
+  - name: gamification
+    description: Points, badges, leaderboard
+  - name: reviews
+    description: Lesson reviews and ratings
+  - name: chatbot
+    description: AI chatbot operations
+  - name: admin
+    description: Admin panel operations
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,7 +47,688 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # AUTH
+  /auth/register:
+    post:
+      operationId: registerUser
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: loginUser
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # USERS
+  /users/profile:
+    put:
+      operationId: updateProfile
+      tags: [users]
+      summary: Update user profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileRequest"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/goals:
+    get:
+      operationId: getDailyGoals
+      tags: [users]
+      summary: Get daily goals
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Daily goals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyGoals"
+    put:
+      operationId: updateDailyGoals
+      tags: [users]
+      summary: Update daily goals
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDailyGoalsRequest"
+      responses:
+        "200":
+          description: Updated goals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyGoals"
+
+  # SUBJECTS
+  /subjects:
+    get:
+      operationId: getSubjects
+      tags: [subjects]
+      summary: Get all subjects
+      parameters:
+        - name: series
+          in: query
+          schema:
+            type: string
+            enum: [A, C, D]
+      responses:
+        "200":
+          description: List of subjects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Subject"
+    post:
+      operationId: createSubject
+      tags: [subjects]
+      summary: Create a subject (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSubjectRequest"
+      responses:
+        "201":
+          description: Created subject
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+
+  /subjects/{id}:
+    get:
+      operationId: getSubject
+      tags: [subjects]
+      summary: Get a subject by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Subject
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+
+  # LESSONS
+  /lessons:
+    get:
+      operationId: getLessons
+      tags: [lessons]
+      summary: Get lessons
+      parameters:
+        - name: subjectId
+          in: query
+          schema:
+            type: integer
+        - name: series
+          in: query
+          schema:
+            type: string
+            enum: [A, C, D]
+      responses:
+        "200":
+          description: List of lessons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Lesson"
+    post:
+      operationId: createLesson
+      tags: [lessons]
+      summary: Create a lesson (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLessonRequest"
+      responses:
+        "201":
+          description: Created lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+
+  /lessons/{id}:
+    get:
+      operationId: getLesson
+      tags: [lessons]
+      summary: Get a lesson by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+    put:
+      operationId: updateLesson
+      tags: [lessons]
+      summary: Update a lesson (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLessonRequest"
+      responses:
+        "200":
+          description: Updated lesson
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+    delete:
+      operationId: deleteLesson
+      tags: [lessons]
+      summary: Delete a lesson (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  # EXERCISES
+  /exercises:
+    get:
+      operationId: getExercises
+      tags: [exercises]
+      summary: Get exercises
+      parameters:
+        - name: lessonId
+          in: query
+          schema:
+            type: integer
+        - name: subjectId
+          in: query
+          schema:
+            type: integer
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum: [easy, medium, hard]
+        - name: series
+          in: query
+          schema:
+            type: string
+            enum: [A, C, D]
+      responses:
+        "200":
+          description: List of exercises
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exercise"
+    post:
+      operationId: createExercise
+      tags: [exercises]
+      summary: Create an exercise (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateExerciseRequest"
+      responses:
+        "201":
+          description: Created exercise
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exercise"
+
+  /exercises/{id}:
+    get:
+      operationId: getExercise
+      tags: [exercises]
+      summary: Get exercise by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Exercise
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exercise"
+
+  /exercises/{id}/submit:
+    post:
+      operationId: submitExercise
+      tags: [exercises]
+      summary: Submit exercise answer
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitExerciseRequest"
+      responses:
+        "200":
+          description: Exercise result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExerciseResult"
+
+  # PAST EXAMS
+  /exams:
+    get:
+      operationId: getExams
+      tags: [exams]
+      summary: Get past exams
+      parameters:
+        - name: series
+          in: query
+          schema:
+            type: string
+            enum: [A, C, D]
+        - name: year
+          in: query
+          schema:
+            type: integer
+        - name: subjectId
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of exams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exam"
+    post:
+      operationId: createExam
+      tags: [exams]
+      summary: Create a past exam (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateExamRequest"
+      responses:
+        "201":
+          description: Created exam
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exam"
+
+  /exams/{id}:
+    get:
+      operationId: getExam
+      tags: [exams]
+      summary: Get exam by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Exam
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exam"
+
+  # PROGRESS
+  /progress:
+    get:
+      operationId: getProgress
+      tags: [progress]
+      summary: Get user progress
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: User progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProgress"
+
+  /progress/lesson/{lessonId}:
+    post:
+      operationId: markLessonComplete
+      tags: [progress]
+      summary: Mark lesson as viewed/complete
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: lessonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Progress updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  # GAMIFICATION
+  /leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [gamification]
+      summary: Get leaderboard
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: Leaderboard
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+
+  /badges:
+    get:
+      operationId: getUserBadges
+      tags: [gamification]
+      summary: Get user badges
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: User badges
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Badge"
+
+  # REVIEWS
+  /reviews:
+    get:
+      operationId: getReviews
+      tags: [reviews]
+      summary: Get reviews for a lesson
+      parameters:
+        - name: lessonId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+    post:
+      operationId: createReview
+      tags: [reviews]
+      summary: Create a review
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReviewRequest"
+      responses:
+        "201":
+          description: Created review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  # CHATBOT
+  /chat/message:
+    post:
+      operationId: sendChatMessage
+      tags: [chatbot]
+      summary: Send a message to the AI tutor
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatMessageRequest"
+      responses:
+        "200":
+          description: AI response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatMessageResponse"
+
+  /chat/history:
+    get:
+      operationId: getChatHistory
+      tags: [chatbot]
+      summary: Get chat history
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Chat history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChatMessage"
+
+  # ADMIN
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Get admin statistics
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+
+  /admin/users:
+    get:
+      operationId: getAdminUsers
+      tags: [admin]
+      summary: Get all users (admin)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Users list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /admin/reviews/{id}/moderate:
+    put:
+      operationId: moderateReview
+      tags: [admin]
+      summary: Moderate a review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModerateReviewRequest"
+      responses:
+        "200":
+          description: Moderated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     HealthStatus:
       type: object
@@ -34,3 +738,651 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+
+    RegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+        series:
+          type: string
+          enum: [A, C, D]
+      required:
+        - name
+        - email
+        - password
+        - series
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - token
+        - user
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D]
+        role:
+          type: string
+          enum: [student, admin]
+        avatarUrl:
+          type: string
+          nullable: true
+        points:
+          type: integer
+        isPremium:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - series
+        - role
+        - points
+        - isPremium
+        - createdAt
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D]
+        avatarUrl:
+          type: string
+
+    DailyGoals:
+      type: object
+      properties:
+        lessonsPerDay:
+          type: integer
+        exercisesPerDay:
+          type: integer
+        studyMinutesPerDay:
+          type: integer
+        lessonsCompletedToday:
+          type: integer
+        exercisesCompletedToday:
+          type: integer
+      required:
+        - lessonsPerDay
+        - exercisesPerDay
+        - studyMinutesPerDay
+        - lessonsCompletedToday
+        - exercisesCompletedToday
+
+    UpdateDailyGoalsRequest:
+      type: object
+      properties:
+        lessonsPerDay:
+          type: integer
+        exercisesPerDay:
+          type: integer
+        studyMinutesPerDay:
+          type: integer
+
+    Subject:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        description:
+          type: string
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+        color:
+          type: string
+          nullable: true
+        lessonCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - series
+        - lessonCount
+        - createdAt
+
+    CreateSubjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        description:
+          type: string
+        icon:
+          type: string
+        color:
+          type: string
+      required:
+        - name
+        - series
+
+    Lesson:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        subjectId:
+          type: integer
+        subjectName:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        content:
+          type: string
+        summary:
+          type: string
+          nullable: true
+        videoUrl:
+          type: string
+          nullable: true
+        audioUrl:
+          type: string
+          nullable: true
+        pdfUrl:
+          type: string
+          nullable: true
+        isPremium:
+          type: boolean
+        duration:
+          type: integer
+          nullable: true
+        order:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - subjectId
+        - subjectName
+        - series
+        - content
+        - isPremium
+        - order
+        - createdAt
+
+    CreateLessonRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        subjectId:
+          type: integer
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        content:
+          type: string
+        summary:
+          type: string
+        videoUrl:
+          type: string
+        audioUrl:
+          type: string
+        pdfUrl:
+          type: string
+        isPremium:
+          type: boolean
+        duration:
+          type: integer
+        order:
+          type: integer
+      required:
+        - title
+        - subjectId
+        - series
+        - content
+
+    Exercise:
+      type: object
+      properties:
+        id:
+          type: integer
+        lessonId:
+          type: integer
+          nullable: true
+        subjectId:
+          type: integer
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        question:
+          type: string
+        type:
+          type: string
+          enum: [mcq, open, true_false]
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+        options:
+          type: array
+          nullable: true
+          items:
+            type: string
+        correctAnswer:
+          type: string
+        explanation:
+          type: string
+        isPremium:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - subjectId
+        - series
+        - question
+        - type
+        - difficulty
+        - correctAnswer
+        - explanation
+        - isPremium
+        - createdAt
+
+    CreateExerciseRequest:
+      type: object
+      properties:
+        lessonId:
+          type: integer
+        subjectId:
+          type: integer
+        series:
+          type: string
+          enum: [A, C, D, ALL]
+        question:
+          type: string
+        type:
+          type: string
+          enum: [mcq, open, true_false]
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+        options:
+          type: array
+          items:
+            type: string
+        correctAnswer:
+          type: string
+        explanation:
+          type: string
+        isPremium:
+          type: boolean
+      required:
+        - subjectId
+        - series
+        - question
+        - type
+        - difficulty
+        - correctAnswer
+        - explanation
+
+    SubmitExerciseRequest:
+      type: object
+      properties:
+        answer:
+          type: string
+      required:
+        - answer
+
+    ExerciseResult:
+      type: object
+      properties:
+        correct:
+          type: boolean
+        explanation:
+          type: string
+        correctAnswer:
+          type: string
+        pointsEarned:
+          type: integer
+      required:
+        - correct
+        - explanation
+        - correctAnswer
+        - pointsEarned
+
+    Exam:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        subjectId:
+          type: integer
+        subjectName:
+          type: string
+        series:
+          type: string
+          enum: [A, C, D]
+        year:
+          type: integer
+        content:
+          type: string
+        correction:
+          type: string
+        pdfUrl:
+          type: string
+          nullable: true
+        isPremium:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - subjectId
+        - subjectName
+        - series
+        - year
+        - content
+        - correction
+        - isPremium
+        - createdAt
+
+    CreateExamRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        subjectId:
+          type: integer
+        series:
+          type: string
+          enum: [A, C, D]
+        year:
+          type: integer
+        content:
+          type: string
+        correction:
+          type: string
+        pdfUrl:
+          type: string
+        isPremium:
+          type: boolean
+      required:
+        - title
+        - subjectId
+        - series
+        - year
+        - content
+        - correction
+
+    UserProgress:
+      type: object
+      properties:
+        totalLessons:
+          type: integer
+        completedLessons:
+          type: integer
+        totalExercises:
+          type: integer
+        completedExercises:
+          type: integer
+        correctExercises:
+          type: integer
+        progressPercentage:
+          type: number
+        points:
+          type: integer
+        streak:
+          type: integer
+        recentLessons:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lesson"
+      required:
+        - totalLessons
+        - completedLessons
+        - totalExercises
+        - completedExercises
+        - correctExercises
+        - progressPercentage
+        - points
+        - streak
+
+    LeaderboardEntry:
+      type: object
+      properties:
+        rank:
+          type: integer
+        userId:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
+        series:
+          type: string
+        points:
+          type: integer
+        badges:
+          type: integer
+      required:
+        - rank
+        - userId
+        - name
+        - series
+        - points
+        - badges
+
+    Badge:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        earnedAt:
+          type: string
+          format: date-time
+          nullable: true
+        earned:
+          type: boolean
+      required:
+        - id
+        - name
+        - description
+        - icon
+        - earned
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        lessonId:
+          type: integer
+        userId:
+          type: integer
+        userName:
+          type: string
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          nullable: true
+        isApproved:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - lessonId
+        - userId
+        - userName
+        - rating
+        - isApproved
+        - createdAt
+
+    CreateReviewRequest:
+      type: object
+      properties:
+        lessonId:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+      required:
+        - lessonId
+        - rating
+
+    ChatMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        context:
+          type: string
+          nullable: true
+          description: Optional context (lesson content, subject)
+      required:
+        - message
+
+    ChatMessageResponse:
+      type: object
+      properties:
+        reply:
+          type: string
+        isEducational:
+          type: boolean
+      required:
+        - reply
+        - isEducational
+
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - role
+        - content
+        - createdAt
+
+    ModerateReviewRequest:
+      type: object
+      properties:
+        approved:
+          type: boolean
+      required:
+        - approved
+
+    AdminStats:
+      type: object
+      properties:
+        totalUsers:
+          type: integer
+        premiumUsers:
+          type: integer
+        totalLessons:
+          type: integer
+        totalExercises:
+          type: integer
+        totalExams:
+          type: integer
+        totalReviews:
+          type: integer
+      required:
+        - totalUsers
+        - premiumUsers
+        - totalLessons
+        - totalExercises
+        - totalExams
+        - totalReviews
