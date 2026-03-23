@@ -20,6 +20,10 @@ import Leaderboard from "@/pages/leaderboard";
 import Methodology from "@/pages/methodology";
 import Profile from "@/pages/profile";
 import AdminPanel from "@/pages/admin";
+import AdminCourses from "@/pages/admin-courses";
+import AdminAddCourse from "@/pages/admin-add-course";
+import AdminStats from "@/pages/admin-stats";
+import AdminUsers from "@/pages/admin-users";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient({
@@ -31,7 +35,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Protected Route Component
 function ProtectedRoute({ component: Component, ...rest }: any) {
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -53,8 +56,8 @@ function Router() {
       <Route path="/" component={LandingPage} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      
-      {/* Protected Routes */}
+
+      {/* Student Routes */}
       <Route path="/dashboard"><ProtectedRoute component={Dashboard} /></Route>
       <Route path="/courses"><ProtectedRoute component={Courses} /></Route>
       <Route path="/lessons/:id"><ProtectedRoute component={LessonDetail} /></Route>
@@ -65,7 +68,14 @@ function Router() {
       <Route path="/leaderboard"><ProtectedRoute component={Leaderboard} /></Route>
       <Route path="/methodology"><ProtectedRoute component={Methodology} /></Route>
       <Route path="/profile"><ProtectedRoute component={Profile} /></Route>
+
+      {/* Admin Routes */}
       <Route path="/admin"><ProtectedRoute component={AdminPanel} /></Route>
+      <Route path="/admin/courses"><ProtectedRoute component={AdminCourses} /></Route>
+      <Route path="/admin/add-course"><ProtectedRoute component={AdminAddCourse} /></Route>
+      <Route path="/admin/edit-course/:id"><ProtectedRoute component={AdminAddCourse} /></Route>
+      <Route path="/admin/stats"><ProtectedRoute component={AdminStats} /></Route>
+      <Route path="/admin/users"><ProtectedRoute component={AdminUsers} /></Route>
 
       <Route component={NotFound} />
     </Switch>

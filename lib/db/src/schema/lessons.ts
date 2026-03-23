@@ -16,6 +16,8 @@ export const lessonsTable = pgTable("lessons", {
   isPremium: boolean("is_premium").notNull().default(false),
   duration: integer("duration"),
   order: integer("order").notNull().default(0),
+  keyPoints: text("key_points"),
+  examples: text("examples"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

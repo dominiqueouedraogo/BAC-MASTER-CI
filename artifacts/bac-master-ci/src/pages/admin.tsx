@@ -1,118 +1,117 @@
-import { useState } from "react";
+import { Link, Redirect } from "wouter";
 import { MainLayout } from "@/components/layout/main-layout";
 import { useAuth } from "@/hooks/use-auth";
-import { useGetAdminStats, useGetAdminUsers } from "@workspace/api-client-react";
-import { Redirect } from "wouter";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, BrainCircuit, FileText, Star, ShieldAlert } from "lucide-react";
+import { useGetAdminStats } from "@workspace/api-client-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Users, BookOpen, BrainCircuit, FileText, Star, ShieldAlert, BarChart2, Plus, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminPanel() {
   const { user } = useAuth();
-  
-  if (user?.role !== 'admin') {
+
+  if (user?.role !== "admin") {
     return <Redirect to="/dashboard" />;
   }
 
   const { data: stats, isLoading: loadingStats } = useGetAdminStats();
-  const { data: users, isLoading: loadingUsers } = useGetAdminUsers();
+
+  const navCards = [
+    {
+      href: "/admin/courses",
+      icon: BookOpen,
+      label: "Gestion des Cours",
+      description: "Lister, modifier et supprimer les cours.",
+      color: "text-primary",
+      bg: "bg-primary/10",
+    },
+    {
+      href: "/admin/add-course",
+      icon: Plus,
+      label: "Ajouter un Cours",
+      description: "Créer un nouveau cours avec exercices.",
+      color: "text-emerald-600",
+      bg: "bg-emerald-500/10",
+    },
+    {
+      href: "/admin/stats",
+      icon: BarChart2,
+      label: "Statistiques",
+      description: "Activité, inscriptions, cours populaires.",
+      color: "text-blue-600",
+      bg: "bg-blue-500/10",
+    },
+    {
+      href: "/admin/users",
+      icon: Users,
+      label: "Élèves",
+      description: "Consulter et gérer les comptes élèves.",
+      color: "text-purple-600",
+      bg: "bg-purple-500/10",
+    },
+  ];
 
   return (
     <MainLayout>
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-destructive/10 flex items-center justify-center">
+          <ShieldAlert className="text-destructive w-6 h-6" />
+        </div>
         <div>
-          <h1 className="text-3xl font-display font-bold text-foreground flex items-center gap-3">
-            <ShieldAlert className="text-destructive w-8 h-8" /> Administration
-          </h1>
-          <p className="text-muted-foreground mt-1">Supervisez la plateforme BAC MASTER CI.</p>
+          <h1 className="text-3xl font-display font-bold text-foreground">Administration</h1>
+          <p className="text-muted-foreground mt-0.5">Supervisez la plateforme BAC MASTER CI.</p>
         </div>
       </div>
 
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="bg-muted/50 p-1 mb-8 rounded-xl">
-          <TabsTrigger value="overview" className="rounded-lg">Vue d'ensemble</TabsTrigger>
-          <TabsTrigger value="users" className="rounded-lg">Utilisateurs</TabsTrigger>
-          <TabsTrigger value="content" className="rounded-lg text-muted-foreground" disabled>Gérer le contenu (Bientôt)</TabsTrigger>
-        </TabsList>
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        {loadingStats ? (
+          [1, 2, 3, 4, 5, 6].map(i => <Skeleton key={i} className="h-24 rounded-2xl" />)
+        ) : (
+          <>
+            <StatCard title="Total Élèves" value={stats?.totalUsers || 0} icon={Users} color="text-blue-500" bg="bg-blue-500/10" />
+            <StatCard title="Comptes Premium" value={stats?.premiumUsers || 0} icon={Star} color="text-amber-500" bg="bg-amber-500/10" />
+            <StatCard title="Leçons" value={stats?.totalLessons || 0} icon={BookOpen} color="text-primary" bg="bg-primary/10" />
+            <StatCard title="Exercices" value={stats?.totalExercises || 0} icon={BrainCircuit} color="text-emerald-500" bg="bg-emerald-500/10" />
+            <StatCard title="Annales" value={stats?.totalExams || 0} icon={FileText} color="text-purple-500" bg="bg-purple-500/10" />
+            <StatCard title="Avis reçus" value={stats?.totalReviews || 0} icon={Star} color="text-orange-500" bg="bg-orange-500/10" />
+          </>
+        )}
+      </div>
 
-        <TabsContent value="overview" className="space-y-6">
-          {loadingStats ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[1,2,3,4,5,6].map(i => <Skeleton key={i} className="h-32 rounded-2xl" />)}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-              <StatCard title="Total Élèves" value={stats?.totalUsers || 0} icon={Users} color="text-blue-500" />
-              <StatCard title="Comptes Premium" value={stats?.premiumUsers || 0} icon={Star} color="text-amber-500" />
-              <StatCard title="Leçons" value={stats?.totalLessons || 0} icon={BookOpen} color="text-primary" />
-              <StatCard title="Exercices" value={stats?.totalExercises || 0} icon={BrainCircuit} color="text-emerald-500" />
-              <StatCard title="Annales" value={stats?.totalExams || 0} icon={FileText} color="text-purple-500" />
-              <StatCard title="Avis laissés" value={stats?.totalReviews || 0} icon={Star} color="text-orange-500" />
-            </div>
-          )}
-        </TabsContent>
-
-        <TabsContent value="users">
-          <Card className="rounded-3xl border-border shadow-sm">
-            <CardHeader>
-              <CardTitle className="font-display">Liste des élèves récents</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {loadingUsers ? (
-                <div className="space-y-4">
-                  {[1,2,3].map(i => <Skeleton key={i} className="h-16 w-full rounded-xl" />)}
+      {/* Navigation Cards */}
+      <h2 className="text-lg font-display font-bold text-foreground mb-4">Gérer la plateforme</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {navCards.map(card => (
+          <Link key={card.href} href={card.href}>
+            <Card className="rounded-2xl border-border shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group">
+              <CardContent className="p-6 flex items-center gap-5">
+                <div className={`w-14 h-14 rounded-2xl ${card.bg} ${card.color} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}>
+                  <card.icon className="w-7 h-7" />
                 </div>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left">
-                    <thead className="text-xs text-muted-foreground uppercase bg-muted/50">
-                      <tr>
-                        <th className="px-6 py-4 rounded-tl-xl">Nom</th>
-                        <th className="px-6 py-4">Email</th>
-                        <th className="px-6 py-4">Série</th>
-                        <th className="px-6 py-4">Points</th>
-                        <th className="px-6 py-4 rounded-tr-xl">Statut</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border/50">
-                      {users?.map(u => (
-                        <tr key={u.id} className="hover:bg-muted/20">
-                          <td className="px-6 py-4 font-bold text-foreground">{u.name}</td>
-                          <td className="px-6 py-4 text-muted-foreground">{u.email}</td>
-                          <td className="px-6 py-4 font-semibold">{u.series}</td>
-                          <td className="px-6 py-4">{u.points}</td>
-                          <td className="px-6 py-4">
-                            <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${u.isPremium ? 'bg-amber-500/10 text-amber-600' : 'bg-muted text-muted-foreground'}`}>
-                              {u.isPremium ? 'Premium' : 'Standard'}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-display font-bold text-foreground text-base">{card.label}</h3>
+                  <p className="text-sm text-muted-foreground mt-0.5">{card.description}</p>
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
     </MainLayout>
   );
 }
 
-function StatCard({ title, value, icon: Icon, color }: any) {
+function StatCard({ title, value, icon: Icon, color, bg }: any) {
   return (
     <Card className="rounded-2xl border-border shadow-sm">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className={`p-3 rounded-xl bg-muted/50 ${color}`}>
-            <Icon className="w-6 h-6" />
-          </div>
+      <CardContent className="p-5 flex items-center gap-4">
+        <div className={`w-10 h-10 rounded-xl ${bg} ${color} flex items-center justify-center shrink-0`}>
+          <Icon className="w-5 h-5" />
         </div>
         <div>
-          <h4 className="text-3xl font-display font-bold text-foreground">{value.toLocaleString()}</h4>
-          <p className="text-sm font-medium text-muted-foreground mt-1">{title}</p>
+          <h4 className="text-2xl font-display font-bold text-foreground">{value.toLocaleString()}</h4>
+          <p className="text-xs font-medium text-muted-foreground mt-0.5">{title}</p>
         </div>
       </CardContent>
     </Card>

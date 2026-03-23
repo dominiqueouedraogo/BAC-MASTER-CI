@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db } from "@workspace/db";
-import { chatMessagesTable } from "@workspace/db";
+import { chatMessagesTable, lessonsTable, usersTable } from "@workspace/db";
 import { eq, desc } from "drizzle-orm";
 import { authMiddleware, type AuthRequest } from "../middlewares/auth.js";
 import { openai } from "@workspace/integrations-openai-ai-server";
@@ -106,6 +106,88 @@ router.get("/history", authMiddleware, async (req: AuthRequest, res) => {
     res.json(messages);
   } catch (err) {
     req.log.error({ err }, "GetChatHistory error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/quiz-generate", authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const { lessonId, series } = req.body;
+    if (!lessonId) { res.status(400).json({ error: "lessonId required" }); return; }
+
+    const [lesson] = await db.select().from(lessonsTable).where(eq(lessonsTable.id, lessonId)).limit(1);
+    if (!lesson) { res.status(404).json({ error: "Lesson not found" }); return; }
+
+    const contentPreview = lesson.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 3000);
+    const seriesLabel = series || lesson.series || "D";
+
+    const prompt = `Tu es un enseignant qui crée des quiz pour des élèves de Terminale ${seriesLabel} en Côte d'Ivoire.
+
+Basé sur ce contenu de cours:
+---
+${contentPreview}
+---
+
+Génère exactement 5 questions à choix multiples (QCM) en français. 
+
+RÉPONDS UNIQUEMENT avec un JSON valide, sans texte avant ou après. Format exact:
+{
+  "questions": [
+    {
+      "question": "Question ici?",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correctAnswer": "Option A",
+      "explanation": "Explication courte ici."
+    }
+  ]
+}
+
+Règles:
+- 5 questions obligatoires
+- 4 options par question
+- Niveau adapté à la Terminale ${seriesLabel}
+- Questions variées couvrant différents aspects du cours
+- Réponses claires et univoques`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-5.2",
+      max_completion_tokens: 2000,
+      messages: [
+        { role: "system", content: "Tu génères des quiz éducatifs. Réponds uniquement en JSON valide." },
+        { role: "user", content: prompt },
+      ],
+    });
+
+    const rawContent = completion.choices[0]?.message?.content || "";
+    const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) { res.status(500).json({ error: "Failed to parse quiz response" }); return; }
+
+    const quizData = JSON.parse(jsonMatch[0]);
+    res.json({
+      lessonTitle: lesson.title,
+      questions: quizData.questions || [],
+    });
+  } catch (err) {
+    req.log.error({ err }, "QuizGenerate error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/quiz-complete", authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const { correctAnswers } = req.body;
+    const pts = Math.max(0, parseInt(correctAnswers) || 0) * 10;
+
+    if (pts > 0) {
+      const [user] = await db.select().from(usersTable).where(eq(usersTable.id, req.userId!)).limit(1);
+      if (user) {
+        await db.update(usersTable).set({ points: user.points + pts }).where(eq(usersTable.id, req.userId!));
+      }
+    }
+
+    res.json({ pointsEarned: pts, message: pts > 0 ? `+${pts} points gagnés !` : "Aucun point gagné." });
+  } catch (err) {
+    req.log.error({ err }, "QuizComplete error");
     res.status(500).json({ error: "Internal server error" });
   }
 });

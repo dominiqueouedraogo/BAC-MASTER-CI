@@ -6,31 +6,34 @@ import { authMiddleware, adminMiddleware, type AuthRequest } from "../middleware
 
 const router: IRouter = Router();
 
+const lessonFields = {
+  id: lessonsTable.id,
+  title: lessonsTable.title,
+  subjectId: lessonsTable.subjectId,
+  subjectName: subjectsTable.name,
+  series: lessonsTable.series,
+  content: lessonsTable.content,
+  summary: lessonsTable.summary,
+  keyPoints: lessonsTable.keyPoints,
+  examples: lessonsTable.examples,
+  videoUrl: lessonsTable.videoUrl,
+  audioUrl: lessonsTable.audioUrl,
+  pdfUrl: lessonsTable.pdfUrl,
+  isPremium: lessonsTable.isPremium,
+  duration: lessonsTable.duration,
+  order: lessonsTable.order,
+  createdAt: lessonsTable.createdAt,
+};
+
 router.get("/", async (req, res) => {
   try {
     const { subjectId, series } = req.query;
-    
     const conditions = [];
     if (subjectId) conditions.push(eq(lessonsTable.subjectId, parseInt(subjectId as string)));
     if (series) conditions.push(eq(lessonsTable.series, series as string));
 
     const rows = await db
-      .select({
-        id: lessonsTable.id,
-        title: lessonsTable.title,
-        subjectId: lessonsTable.subjectId,
-        subjectName: subjectsTable.name,
-        series: lessonsTable.series,
-        content: lessonsTable.content,
-        summary: lessonsTable.summary,
-        videoUrl: lessonsTable.videoUrl,
-        audioUrl: lessonsTable.audioUrl,
-        pdfUrl: lessonsTable.pdfUrl,
-        isPremium: lessonsTable.isPremium,
-        duration: lessonsTable.duration,
-        order: lessonsTable.order,
-        createdAt: lessonsTable.createdAt,
-      })
+      .select(lessonFields)
       .from(lessonsTable)
       .leftJoin(subjectsTable, eq(lessonsTable.subjectId, subjectsTable.id))
       .where(conditions.length > 0 ? and(...conditions) : undefined)
@@ -47,22 +50,7 @@ router.get("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const [row] = await db
-      .select({
-        id: lessonsTable.id,
-        title: lessonsTable.title,
-        subjectId: lessonsTable.subjectId,
-        subjectName: subjectsTable.name,
-        series: lessonsTable.series,
-        content: lessonsTable.content,
-        summary: lessonsTable.summary,
-        videoUrl: lessonsTable.videoUrl,
-        audioUrl: lessonsTable.audioUrl,
-        pdfUrl: lessonsTable.pdfUrl,
-        isPremium: lessonsTable.isPremium,
-        duration: lessonsTable.duration,
-        order: lessonsTable.order,
-        createdAt: lessonsTable.createdAt,
-      })
+      .select(lessonFields)
       .from(lessonsTable)
       .leftJoin(subjectsTable, eq(lessonsTable.subjectId, subjectsTable.id))
       .where(eq(lessonsTable.id, id))
@@ -78,10 +66,10 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
   try {
-    const { title, subjectId, series, content, summary, videoUrl, audioUrl, pdfUrl, isPremium, duration, order } = req.body;
+    const { title, subjectId, series, content, summary, keyPoints, examples, videoUrl, audioUrl, pdfUrl, isPremium, duration, order } = req.body;
     const [lesson] = await db.insert(lessonsTable).values({
-      title, subjectId, series: series || "ALL", content, summary, videoUrl, audioUrl, pdfUrl,
-      isPremium: isPremium || false, duration, order: order || 0,
+      title, subjectId, series: series || "ALL", content, summary, keyPoints, examples,
+      videoUrl, audioUrl, pdfUrl, isPremium: isPremium || false, duration, order: order || 0,
     }).returning();
 
     const [subject] = await db.select().from(subjectsTable).where(eq(subjectsTable.id, subjectId)).limit(1);
@@ -95,9 +83,10 @@ router.post("/", authMiddleware, adminMiddleware, async (req: AuthRequest, res) 
 router.put("/:id", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
   try {
     const id = parseInt(req.params.id);
-    const { title, subjectId, series, content, summary, videoUrl, audioUrl, pdfUrl, isPremium, duration, order } = req.body;
+    const { title, subjectId, series, content, summary, keyPoints, examples, videoUrl, audioUrl, pdfUrl, isPremium, duration, order } = req.body;
     const [lesson] = await db.update(lessonsTable).set({
-      title, subjectId, series, content, summary, videoUrl, audioUrl, pdfUrl, isPremium, duration, order,
+      title, subjectId, series, content, summary, keyPoints, examples,
+      videoUrl, audioUrl, pdfUrl, isPremium, duration, order,
     }).where(eq(lessonsTable.id, id)).returning();
 
     const [subject] = await db.select().from(subjectsTable).where(eq(subjectsTable.id, lesson.subjectId)).limit(1);
