@@ -62,6 +62,13 @@ artifacts-monorepo/
 18. **Admin Users** - Full user list with points, series, role, premium status
 19. **Freemium Model** - Free/premium content distinction
 
+## Database Content
+
+- **26 lessons** across all 10 subjects (Maths, Physique-Chimie C/D, SVT C/D, Français, Philosophie, Anglais, Histoire-Géo A, Sciences Éco A)
+- **41 exercises** linked to lessons with MCQ format and explanations
+- **7 past BAC exams** (2022-2023) across multiple subjects with full corrections
+- All lessons include: `content`, `keyPoints`, `examples`, `summary`, `duration`
+
 ## Default Admin Credentials
 
 - Email: `admin@bacmaster.ci`
