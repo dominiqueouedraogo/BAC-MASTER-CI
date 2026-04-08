@@ -124,6 +124,29 @@ router.get("/courses", authMiddleware, adminMiddleware, async (req: AuthRequest,
   }
 });
 
+router.get("/exams", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const exams = await db
+      .select({
+        id: examsTable.id,
+        title: examsTable.title,
+        subjectId: examsTable.subjectId,
+        subjectName: subjectsTable.name,
+        series: examsTable.series,
+        year: examsTable.year,
+        isPremium: examsTable.isPremium,
+        createdAt: examsTable.createdAt,
+      })
+      .from(examsTable)
+      .leftJoin(subjectsTable, eq(examsTable.subjectId, subjectsTable.id))
+      .orderBy(desc(examsTable.year));
+    res.json(exams);
+  } catch (err) {
+    req.log.error({ err }, "GetAdminExams error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.delete("/courses/:id", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
   try {
     const id = parseInt(req.params.id);

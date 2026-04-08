@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { useGetExams, GetExamsSeries } from "@workspace/api-client-react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { useAuth } from "@/hooks/use-auth";
@@ -83,20 +84,23 @@ export default function Exams() {
               <CardContent className="p-6 flex-1 flex flex-col bg-card">
                 <p className="font-medium text-foreground mb-6 line-clamp-2">{exam.title}</p>
                 <div className="mt-auto flex flex-col gap-2">
-                  <Button 
-                    className="w-full rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
-                    disabled={exam.isPremium && !user?.isPremium}
-                  >
-                    Voir le sujet & correction
-                  </Button>
-                  {exam.pdfUrl && (
+                  <Link href={`/exams/${exam.id}`}>
                     <Button 
-                      variant="outline" 
-                      className="w-full rounded-xl gap-2 text-muted-foreground hover:text-foreground"
-                      disabled={exam.isPremium && !user?.isPremium}
+                      className="w-full rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
                     >
-                      <FileDown className="w-4 h-4" /> Télécharger PDF
+                      Voir le sujet & correction
                     </Button>
+                  </Link>
+                  {exam.pdfUrl && (
+                    <a href={exam.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <Button 
+                        variant="outline" 
+                        className="w-full rounded-xl gap-2 text-muted-foreground hover:text-foreground"
+                        disabled={exam.isPremium && !user?.isPremium}
+                      >
+                        <FileDown className="w-4 h-4" /> Télécharger PDF
+                      </Button>
+                    </a>
                   )}
                 </div>
               </CardContent>

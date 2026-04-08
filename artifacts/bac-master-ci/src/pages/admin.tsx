@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useGetAdminStats } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, BookOpen, BrainCircuit, FileText, Star, ShieldAlert, BarChart2, Plus, ArrowRight } from "lucide-react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AdminPanel() {
@@ -33,6 +34,14 @@ export default function AdminPanel() {
       bg: "bg-emerald-500/10",
     },
     {
+      href: "/admin/exams",
+      icon: FileText,
+      label: "Gestion des Annales",
+      description: "Ajouter, modifier et supprimer les annales.",
+      color: "text-purple-600",
+      bg: "bg-purple-500/10",
+    },
+    {
       href: "/admin/stats",
       icon: BarChart2,
       label: "Statistiques",
@@ -45,8 +54,8 @@ export default function AdminPanel() {
       icon: Users,
       label: "Élèves",
       description: "Consulter et gérer les comptes élèves.",
-      color: "text-purple-600",
-      bg: "bg-purple-500/10",
+      color: "text-orange-600",
+      bg: "bg-orange-500/10",
     },
   ];
 

@@ -70,6 +70,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { title, subjectId, series, year, content, correction, pdfUrl, isPremium } = req.body;
+    const [exam] = await db.update(examsTable)
+      .set({ title, subjectId, series, year, content, correction, pdfUrl, isPremium })
+      .where(eq(examsTable.id, id))
+      .returning();
+    if (!exam) { res.status(404).json({ error: "Not found" }); return; }
+    const [subject] = await db.select().from(subjectsTable).where(eq(subjectsTable.id, exam.subjectId)).limit(1);
+    res.json({ ...exam, subjectName: subject?.name || "" });
+  } catch (err) {
+    req.log.error({ err }, "UpdateExam error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/:id", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    await db.delete(examsTable).where(eq(examsTable.id, id));
+    res.json({ success: true });
+  } catch (err) {
+    req.log.error({ err }, "DeleteExam error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.post("/", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
   try {
     const { title, subjectId, series, year, content, correction, pdfUrl, isPremium } = req.body;

@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { db } from "@workspace/db";
 import { usersTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
@@ -114,6 +115,60 @@ router.get("/me", authMiddleware, async (req: AuthRequest, res) => {
     });
   } catch (err) {
     req.log.error({ err }, "GetMe error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ error: "Bad request", message: "Email requis" });
+      return;
+    }
+
+    const [user] = await db.select().from(usersTable).where(eq(usersTable.email, email)).limit(1);
+    if (!user) {
+      res.json({ message: "Si ce compte existe, un lien de réinitialisation a été créé." });
+      return;
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiry = new Date(Date.now() + 60 * 60 * 1000);
+
+    await db.update(usersTable)
+      .set({ resetToken: token, resetTokenExpiry: expiry })
+      .where(eq(usersTable.id, user.id));
+
+    res.json({ message: "Lien de réinitialisation créé.", resetToken: token });
+  } catch (err) {
+    req.log.error({ err }, "ForgotPassword error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { token, password } = req.body;
+    if (!token || !password) {
+      res.status(400).json({ error: "Bad request", message: "Token et mot de passe requis" });
+      return;
+    }
+
+    const [user] = await db.select().from(usersTable).where(eq(usersTable.resetToken, token)).limit(1);
+    if (!user || !user.resetTokenExpiry || user.resetTokenExpiry < new Date()) {
+      res.status(400).json({ error: "Bad request", message: "Lien invalide ou expiré" });
+      return;
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    await db.update(usersTable)
+      .set({ passwordHash, resetToken: null, resetTokenExpiry: null })
+      .where(eq(usersTable.id, user.id));
+
+    res.json({ message: "Mot de passe réinitialisé avec succès." });
+  } catch (err) {
+    req.log.error({ err }, "ResetPassword error");
     res.status(500).json({ error: "Internal server error" });
   }
 });

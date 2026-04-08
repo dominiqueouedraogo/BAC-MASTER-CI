@@ -17,6 +17,8 @@ export const usersTable = pgTable("users", {
   exercisesPerDay: integer("exercises_per_day").notNull().default(5),
   studyMinutesPerDay: integer("study_minutes_per_day").notNull().default(60),
   lastActiveDate: text("last_active_date"),
+  resetToken: text("reset_token"),
+  resetTokenExpiry: timestamp("reset_token_expiry"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

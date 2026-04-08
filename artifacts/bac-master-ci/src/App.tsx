@@ -24,6 +24,11 @@ import AdminCourses from "@/pages/admin-courses";
 import AdminAddCourse from "@/pages/admin-add-course";
 import AdminStats from "@/pages/admin-stats";
 import AdminUsers from "@/pages/admin-users";
+import AdminExams from "@/pages/admin-exams";
+import AdminAddExam from "@/pages/admin-add-exam";
+import ExamDetail from "@/pages/exam-detail";
+import ForgotPassword from "@/pages/forgot-password";
+import ResetPassword from "@/pages/reset-password";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient({
@@ -56,6 +61,8 @@ function Router() {
       <Route path="/" component={LandingPage} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/forgot-password" component={ForgotPassword} />
+      <Route path="/reset-password" component={ResetPassword} />
 
       {/* Student Routes */}
       <Route path="/dashboard"><ProtectedRoute component={Dashboard} /></Route>
@@ -64,6 +71,7 @@ function Router() {
       <Route path="/exercises"><ProtectedRoute component={Exercises} /></Route>
       <Route path="/exercises/:id"><ProtectedRoute component={Quiz} /></Route>
       <Route path="/exams"><ProtectedRoute component={Exams} /></Route>
+      <Route path="/exams/:id"><ProtectedRoute component={ExamDetail} /></Route>
       <Route path="/chat"><ProtectedRoute component={Chatbot} /></Route>
       <Route path="/leaderboard"><ProtectedRoute component={Leaderboard} /></Route>
       <Route path="/methodology"><ProtectedRoute component={Methodology} /></Route>
@@ -76,6 +84,9 @@ function Router() {
       <Route path="/admin/edit-course/:id"><ProtectedRoute component={AdminAddCourse} /></Route>
       <Route path="/admin/stats"><ProtectedRoute component={AdminStats} /></Route>
       <Route path="/admin/users"><ProtectedRoute component={AdminUsers} /></Route>
+      <Route path="/admin/exams"><ProtectedRoute component={AdminExams} /></Route>
+      <Route path="/admin/add-exam"><ProtectedRoute component={AdminAddExam} /></Route>
+      <Route path="/admin/edit-exam/:id"><ProtectedRoute component={AdminAddExam} /></Route>
 
       <Route component={NotFound} />
     </Switch>
