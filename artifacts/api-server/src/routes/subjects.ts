@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db } from "@workspace/db";
 import { subjectsTable, lessonsTable } from "@workspace/db";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, or, and } from "drizzle-orm";
 import { authMiddleware, adminMiddleware, type AuthRequest } from "../middlewares/auth.js";
 
 const router: IRouter = Router();
@@ -16,9 +16,14 @@ router.get("/", async (req, res) => {
     }
 
     const withCounts = await Promise.all(subjects.map(async (s) => {
+      const seriesCondition = series
+        ? or(eq(lessonsTable.series, series as string), eq(lessonsTable.series, "ALL"))
+        : undefined;
       const [count] = await db.select({ count: sql<number>`count(*)` })
         .from(lessonsTable)
-        .where(eq(lessonsTable.subjectId, s.id));
+        .where(seriesCondition
+          ? and(eq(lessonsTable.subjectId, s.id), seriesCondition)
+          : eq(lessonsTable.subjectId, s.id));
       return { ...s, lessonCount: Number(count?.count || 0) };
     }));
 

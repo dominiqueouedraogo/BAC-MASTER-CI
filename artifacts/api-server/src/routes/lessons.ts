@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db } from "@workspace/db";
 import { lessonsTable, subjectsTable } from "@workspace/db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, or } from "drizzle-orm";
 import { authMiddleware, adminMiddleware, type AuthRequest } from "../middlewares/auth.js";
 
 const router: IRouter = Router();
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
     const { subjectId, series } = req.query;
     const conditions = [];
     if (subjectId) conditions.push(eq(lessonsTable.subjectId, parseInt(subjectId as string)));
-    if (series) conditions.push(eq(lessonsTable.series, series as string));
+    if (series) conditions.push(or(eq(lessonsTable.series, series as string), eq(lessonsTable.series, "ALL")));
 
     const rows = await db
       .select(lessonFields)
