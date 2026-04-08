@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { useAuth } from "@/hooks/use-auth";
-import { useUpdateProfile, useGetUserBadges, UpdateProfileRequestSeries } from "@workspace/api-client-react";
+import { useUpdateProfile, useGetUserBadges, useUpgradeToPremium, getGetMeQueryKey, UpdateProfileRequestSeries } from "@workspace/api-client-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,12 +16,26 @@ import { fr } from "date-fns/locale";
 export default function Profile() {
   const { user, login } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   
   const [name, setName] = useState(user?.name || "");
   const [series, setSeries] = useState<UpdateProfileRequestSeries>(user?.series as UpdateProfileRequestSeries || "A");
   
   const updateMutation = useUpdateProfile();
   const { data: badges } = useGetUserBadges();
+  const upgradeMutation = useUpgradeToPremium();
+
+  const handleUpgrade = () => {
+    upgradeMutation.mutate(undefined, {
+      onSuccess: (updatedUser) => {
+        queryClient.setQueryData(getGetMeQueryKey(), updatedUser);
+        toast({ title: "Compte Premium activé !", description: "Vous avez maintenant accès à tout le contenu." });
+      },
+      onError: () => {
+        toast({ title: "Erreur", description: "Impossible d'activer le Premium. Réessayez.", variant: "destructive" });
+      },
+    });
+  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +99,12 @@ export default function Profile() {
                     : "Passez Premium pour débloquer toutes les annales corrigées et l'audio."}
                 </p>
                 {!user.isPremium && (
-                  <Button className="w-full bg-white text-orange-600 hover:bg-white/90 rounded-xl font-bold shadow-lg">
+                  <Button
+                    className="w-full bg-white text-orange-600 hover:bg-white/90 rounded-xl font-bold shadow-lg"
+                    onClick={handleUpgrade}
+                    disabled={upgradeMutation.isPending}
+                  >
+                    {upgradeMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                     Débloquer Premium
                   </Button>
                 )}

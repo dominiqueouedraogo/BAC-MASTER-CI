@@ -461,6 +461,87 @@ export const useUpdateProfile = <
 };
 
 /**
+ * @summary Upgrade current user to premium
+ */
+export const getUpgradeToPremiumUrl = () => {
+  return `/api/users/upgrade-premium`;
+};
+
+export const upgradeToPremium = async (
+  options?: RequestInit,
+): Promise<User> => {
+  return customFetch<User>(getUpgradeToPremiumUrl(), {
+    ...options,
+    method: "POST",
+  });
+};
+
+export const getUpgradeToPremiumMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof upgradeToPremium>>,
+    TError,
+    void,
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof upgradeToPremium>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationKey = ["upgradeToPremium"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof upgradeToPremium>>,
+    void
+  > = () => {
+    return upgradeToPremium(requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpgradeToPremiumMutationResult = NonNullable<
+  Awaited<ReturnType<typeof upgradeToPremium>>
+>;
+
+export type UpgradeToPremiumMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Upgrade current user to premium
+ */
+export const useUpgradeToPremium = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof upgradeToPremium>>,
+    TError,
+    void,
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof upgradeToPremium>>,
+  TError,
+  void,
+  TContext
+> => {
+  return useMutation(getUpgradeToPremiumMutationOptions(options));
+};
+
+/**
  * @summary Get daily goals
  */
 export const getGetDailyGoalsUrl = () => {

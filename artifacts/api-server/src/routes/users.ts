@@ -36,6 +36,30 @@ router.put("/profile", authMiddleware, async (req: AuthRequest, res) => {
   }
 });
 
+router.post("/upgrade-premium", authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const [user] = await db.update(usersTable)
+      .set({ isPremium: true })
+      .where(eq(usersTable.id, req.userId!))
+      .returning();
+
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      series: user.series,
+      role: user.role,
+      avatarUrl: user.avatarUrl,
+      points: user.points,
+      isPremium: user.isPremium,
+      createdAt: user.createdAt,
+    });
+  } catch (err) {
+    req.log.error({ err }, "UpgradeToPremium error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/goals", authMiddleware, async (req: AuthRequest, res) => {
   try {
     const [user] = await db.select().from(usersTable).where(eq(usersTable.id, req.userId!)).limit(1);

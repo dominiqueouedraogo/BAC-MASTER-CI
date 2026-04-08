@@ -86,6 +86,21 @@ export const UpdateProfileResponse = zod.object({
 });
 
 /**
+ * @summary Upgrade current user to premium
+ */
+export const UpgradeToPremiumResponse = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  email: zod.string(),
+  series: zod.enum(["A", "C", "D"]),
+  role: zod.enum(["student", "admin"]),
+  avatarUrl: zod.string().nullish(),
+  points: zod.number(),
+  isPremium: zod.boolean(),
+  createdAt: zod.date(),
+});
+
+/**
  * @summary Get daily goals
  */
 export const GetDailyGoalsResponse = zod.object({
