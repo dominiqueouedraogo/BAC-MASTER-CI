@@ -77,10 +77,17 @@ export async function clearSession(
   res.clearCookie(SESSION_COOKIE, { path: "/" });
 }
 
+function looksLikeJwt(token: string): boolean {
+  const parts = token.split(".");
+  return parts.length === 3;
+}
+
 export function getSessionId(req: Request): string | undefined {
   const authHeader = req.headers["authorization"];
   if (authHeader?.startsWith("Bearer ")) {
-    return authHeader.slice(7);
+    const token = authHeader.slice(7);
+    if (looksLikeJwt(token)) return undefined;
+    return token;
   }
   return req.cookies?.[SESSION_COOKIE];
 }
