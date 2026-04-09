@@ -40,11 +40,29 @@ router.get("/users", authMiddleware, adminMiddleware, async (req: AuthRequest, r
       avatarUrl: usersTable.avatarUrl,
       points: usersTable.points,
       isPremium: usersTable.isPremium,
+      replitId: usersTable.replitId,
       createdAt: usersTable.createdAt,
     }).from(usersTable).orderBy(desc(usersTable.createdAt));
     res.json(users);
   } catch (err) {
     req.log.error({ err }, "GetAdminUsers error");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.patch("/users/:id", authMiddleware, adminMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { role, isPremium, series } = req.body;
+    const updates: Record<string, unknown> = {};
+    if (role !== undefined) updates.role = role;
+    if (isPremium !== undefined) updates.isPremium = isPremium;
+    if (series !== undefined) updates.series = series;
+    await db.update(usersTable).set(updates).where(eq(usersTable.id, id));
+    const [updated] = await db.select().from(usersTable).where(eq(usersTable.id, id));
+    res.json(updated);
+  } catch (err) {
+    req.log.error({ err }, "PatchAdminUser error");
     res.status(500).json({ error: "Internal server error" });
   }
 });
