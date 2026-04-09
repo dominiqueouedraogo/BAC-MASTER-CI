@@ -976,3 +976,4 @@ app.get("/api/users", async (req, res) => {
   const users = await db.select().from(usersTable);
   res.json(users);
 });
+console.log("DB URL:", process.env.DATABASE_URL);
