@@ -66,7 +66,7 @@ function Router() {
 
       {/* Student Routes */}
       <Route path="/dashboard"><ProtectedRoute component={Dashboard} /></Route>
-      <Route path="/courses"><ProtectedRoute component={Courses} /></Route>
+      <Route path="/courses" component={Courses} />
       <Route path="/lessons/:id"><ProtectedRoute component={LessonDetail} /></Route>
       <Route path="/exercises"><ProtectedRoute component={Exercises} /></Route>
       <Route path="/exercises/:id"><ProtectedRoute component={Quiz} /></Route>

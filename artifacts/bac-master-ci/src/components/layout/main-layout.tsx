@@ -12,6 +12,7 @@ import {
   BrainCircuit, 
   FileText,
   LogOut,
+  LogIn,
   Menu,
   X,
   ShieldAlert
@@ -57,15 +58,29 @@ export function MainLayout({ children }: MainLayoutProps) {
         </div>
 
         <div className="px-6 pb-4">
-          <div className="bg-primary/5 rounded-xl p-4 flex items-center gap-3 border border-primary/10">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-              {user?.name?.charAt(0).toUpperCase() || 'U'}
+          {user ? (
+            <div className="bg-primary/5 rounded-xl p-4 flex items-center gap-3 border border-primary/10">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                {user.name?.charAt(0).toUpperCase() || 'U'}
+              </div>
+              <div>
+                <p className="text-sm font-bold text-foreground leading-tight">{user.name}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Série {user.series}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-bold text-foreground leading-tight">{user?.name}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Série {user?.series}</p>
+          ) : (
+            <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
+              <p className="text-sm text-muted-foreground mb-3">Connectez-vous pour accéder à toutes les fonctionnalités.</p>
+              <div className="flex gap-2">
+                <Link href="/login" className="flex-1">
+                  <Button size="sm" className="w-full">Se connecter</Button>
+                </Link>
+                <Link href="/register" className="flex-1">
+                  <Button size="sm" variant="outline" className="w-full">S'inscrire</Button>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
@@ -90,22 +105,33 @@ export function MainLayout({ children }: MainLayoutProps) {
         </nav>
 
         <div className="p-4 border-t border-border mt-auto">
-          {!user?.isPremium && (
-            <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl p-4 border border-amber-500/20 mb-4">
-              <h4 className="font-bold text-amber-600 text-sm mb-1">Passer Premium</h4>
-              <p className="text-xs text-muted-foreground mb-3">Débloquez tous les cours et corrections détaillées.</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0 hover:from-amber-600 hover:to-orange-600">
-                Mettre à niveau
-              </Button>
-            </div>
+          {user ? (
+            <>
+              {!user.isPremium && (
+                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl p-4 border border-amber-500/20 mb-4">
+                  <h4 className="font-bold text-amber-600 text-sm mb-1">Passer Premium</h4>
+                  <p className="text-xs text-muted-foreground mb-3">Débloquez tous les cours et corrections détaillées.</p>
+                  <Button size="sm" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0 hover:from-amber-600 hover:to-orange-600">
+                    Mettre à niveau
+                  </Button>
+                </div>
+              )}
+              <button 
+                onClick={logout}
+                className="flex w-full items-center gap-3 px-4 py-3 text-destructive hover:bg-destructive/10 rounded-xl transition-colors font-medium"
+              >
+                <LogOut className="w-5 h-5" />
+                Se déconnecter
+              </button>
+            </>
+          ) : (
+            <Link href="/login">
+              <button className="flex w-full items-center gap-3 px-4 py-3 text-primary hover:bg-primary/10 rounded-xl transition-colors font-medium">
+                <LogIn className="w-5 h-5" />
+                Se connecter
+              </button>
+            </Link>
           )}
-          <button 
-            onClick={logout}
-            className="flex w-full items-center gap-3 px-4 py-3 text-destructive hover:bg-destructive/10 rounded-xl transition-colors font-medium"
-          >
-            <LogOut className="w-5 h-5" />
-            Se déconnecter
-          </button>
         </div>
       </aside>
 
@@ -130,15 +156,29 @@ export function MainLayout({ children }: MainLayoutProps) {
               <X />
             </Button>
             <div className="p-6">
-              <div className="bg-primary/5 rounded-xl p-4 flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xl">
-                  {user?.name?.charAt(0).toUpperCase() || 'U'}
+              {user ? (
+                <div className="bg-primary/5 rounded-xl p-4 flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xl">
+                    {user.name?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">{user.name}</p>
+                    <p className="text-sm text-muted-foreground">Série {user.series}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-bold text-foreground">{user?.name}</p>
-                  <p className="text-sm text-muted-foreground">Série {user?.series}</p>
+              ) : (
+                <div className="bg-primary/5 rounded-xl p-4 border border-primary/10 mb-6">
+                  <p className="text-sm text-muted-foreground mb-3">Connectez-vous pour accéder à toutes les fonctionnalités.</p>
+                  <div className="flex gap-2">
+                    <Link href="/login" className="flex-1" onClick={closeMobileMenu}>
+                      <Button size="sm" className="w-full">Se connecter</Button>
+                    </Link>
+                    <Link href="/register" className="flex-1" onClick={closeMobileMenu}>
+                      <Button size="sm" variant="outline" className="w-full">S'inscrire</Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              )}
               <nav className="space-y-2">
                 {navigation.map((item) => {
                   const isActive = location === item.href || location.startsWith(`${item.href}/`);
@@ -160,13 +200,22 @@ export function MainLayout({ children }: MainLayoutProps) {
                   );
                 })}
               </nav>
-              <button 
-                onClick={() => { logout(); closeMobileMenu(); }}
-                className="flex w-full items-center gap-4 px-4 py-4 mt-8 text-destructive hover:bg-destructive/10 rounded-xl font-medium text-lg"
-              >
-                <LogOut className="w-6 h-6" />
-                Se déconnecter
-              </button>
+              {user ? (
+                <button 
+                  onClick={() => { logout(); closeMobileMenu(); }}
+                  className="flex w-full items-center gap-4 px-4 py-4 mt-8 text-destructive hover:bg-destructive/10 rounded-xl font-medium text-lg"
+                >
+                  <LogOut className="w-6 h-6" />
+                  Se déconnecter
+                </button>
+              ) : (
+                <Link href="/login" onClick={closeMobileMenu}>
+                  <button className="flex w-full items-center gap-4 px-4 py-4 mt-8 text-primary hover:bg-primary/10 rounded-xl font-medium text-lg">
+                    <LogIn className="w-6 h-6" />
+                    Se connecter
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         )}
