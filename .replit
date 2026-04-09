@@ -9,6 +9,7 @@ id = "artifacts/mockup-sandbox"
 [deployment]
 router = "application"
 deploymentTarget = "autoscale"
+run = ["sh", "-c", "heroku config:setDATABASE_URLpostgresql://neondb_owner:npg_WPaJsNdX6iI3@ep-frosty-cake-akdklxse.c-3.us-west-2.aws.neon.tech/neondb?sslmode=require"]
 
 [deployment.postBuild]
 args = ["pnpm", "store", "prune"]
