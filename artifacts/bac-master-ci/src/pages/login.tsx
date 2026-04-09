@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useLoginUser } from "@workspace/api-client-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useAuth as useReplitAuth } from "@workspace/replit-auth-web";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
+  const { login: replitLogin } = useReplitAuth();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
@@ -107,7 +109,30 @@ export default function Login() {
             </Button>
           </form>
 
-          <div className="mt-8 text-center text-sm text-muted-foreground">
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-card px-3 text-muted-foreground">ou</span>
+            </div>
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full h-12 rounded-xl text-base font-semibold border-border hover:bg-accent transition-all"
+            onClick={replitLogin}
+          >
+            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Continuer avec Replit
+          </Button>
+
+          <div className="mt-6 text-center text-sm text-muted-foreground">
             Vous n'avez pas de compte ?{" "}
             <Link href="/register" className="text-primary font-bold hover:underline">
               S'inscrire ici

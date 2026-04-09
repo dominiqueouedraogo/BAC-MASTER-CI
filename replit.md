@@ -16,7 +16,7 @@ Full-stack educational web application for high school students in Côte d'Ivoir
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 - **Frontend**: React + Vite + Tailwind CSS
-- **Auth**: JWT (bcryptjs + jsonwebtoken)
+- **Auth**: JWT (bcryptjs + jsonwebtoken) + Replit OIDC (openid-client, sessions in PostgreSQL)
 - **AI**: OpenAI via Replit AI Integrations (educational chatbot + AI quiz generation)
 
 ## Structure
