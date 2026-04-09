@@ -857,6 +857,562 @@ Let us now turn to my first point: the potential benefits. To illustrate, platfo
 <p><strong>Conclusion:</strong><br>
 In conclusion, social media is a double-edged sword. I would strongly encourage every student to set clear boundaries for their screen time. Thank you very much for your attention. I am happy to take any questions.</p>`,
   },
+  // ── Unité 6 ────────────────────────────────────────────────────────────────
+  {
+    title: `Leçon 1 (Unité 6) : Language function – Emphasizing with "not only ... but also"`,
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 20,
+    duration: 50,
+    isPremium: false,
+    summary:
+      `Master the emphatic structure "not only ... but also", its inverted form, and related structures: both/and, neither/nor, cleft sentences.`,
+    keyPoints: `"Not only ... but also" emphasizes that two things are true
+When "not only" starts the sentence, use inverted word order (auxiliary + subject)
+Inverted form: Not only did/is/has/was + subject + verb
+"Both ... and" joins two positive things equally
+"Neither ... nor" joins two negative things
+"Either ... or" presents a choice between two things
+Cleft sentences "It is/was ... that/who" emphasize one element of a sentence
+Used in formal/written English for rhetorical and emphatic effect`,
+    content: `<h2>Emphasizing with "Not only … but also"</h2>
+<p>The structure <strong>not only … but also</strong> emphasizes that two things are true, with the second point adding extra weight to the first.</p>
+<h3>1. Basic Structure</h3>
+<p><strong>Not only + [first point] + but also + [second point]</strong></p>
+<ul>
+  <li>She is <em>not only intelligent but also</em> very hardworking.</li>
+  <li>This plan will <em>not only save time but also</em> reduce costs.</li>
+</ul>
+<h3>2. Inverted Word Order (Formal)</h3>
+<p>When <em>not only</em> starts the sentence, subject and auxiliary verb are <strong>inverted</strong>.</p>
+<ul>
+  <li><em>Not only did she pass</em> the exam, but she also achieved the highest score.</li>
+  <li><em>Not only is he</em> a talented musician, but he is also a gifted writer.</li>
+  <li><em>Not only have they completed</em> the project, but they have also exceeded all expectations.</li>
+</ul>
+<h3>3. Related Emphatic Structures</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Structure</th><th>Example</th></tr>
+  <tr><td>Both … and</td><td>Both the teacher and the students were surprised.</td></tr>
+  <tr><td>Neither … nor</td><td>Neither the president nor the minister attended.</td></tr>
+  <tr><td>Either … or</td><td>Either you study now or you will regret it.</td></tr>
+</table>
+<h3>4. Cleft Sentences for Emphasis</h3>
+<p><em>It is/was … that/who</em> highlights a specific part of a sentence.</p>
+<ul>
+  <li><em>It was the teacher who</em> noticed the error first.</li>
+  <li><em>It is dedication that</em> separates good students from great ones.</li>
+</ul>`,
+    examples: `<p><strong>Basic (mid-sentence):</strong><br>
+Regular exercise is <em>not only good for the body but also</em> beneficial for mental health.<br>
+The new library will <em>not only provide books but also</em> offer free internet access to students.</p>
+<p><strong>Emphatic (inverted):</strong><br>
+<em>Not only did the candidate win</em> the election, but she also broke the record for the most votes ever recorded.<br>
+<em>Not only is water essential</em> for survival, but it also regulates body temperature.</p>
+<p><strong>Related structures:</strong><br>
+<em>Both the government and</em> the private sector must invest in education.<br>
+<em>Neither the student nor</em> his parents had been informed of the examination change.<br>
+<em>It is through consistent effort that</em> great results are achieved, not through luck alone.</p>`,
+  },
+  {
+    title: "Leçon 1 (Unité 6) : Language corner – Negative adverbs",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 21,
+    duration: 50,
+    isPremium: false,
+    summary:
+      "Learn how negative adverbs (never, rarely, hardly, scarcely, no sooner) trigger subject-auxiliary inversion for emphasis in formal English.",
+    keyPoints: `Negative adverbs (never, rarely, hardly, scarcely) cause subject-auxiliary inversion when at sentence start
+Inversion structure: Negative adverb + auxiliary verb + subject + main verb
+"Never had I seen..." / "Rarely does she..." / "Scarcely had he arrived when..."
+"No sooner ... than" = immediately after (past perfect + than)
+"Hardly/Scarcely ... when" = almost immediately (past perfect + when)
+"Under no circumstances" / "On no account" / "In no way" = absolute negative (inversion required)
+Inversion is used in formal/written English for dramatic or emphatic effect`,
+    content: `<h2>Negative Adverbs</h2>
+<p><strong>Negative adverbs</strong> carry a negative meaning. When placed at the <strong>beginning of a sentence</strong>, the subject and auxiliary verb are <strong>inverted</strong>, creating a formal, emphatic effect.</p>
+<h3>1. Common Negative Adverbs and Phrases</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Adverb/Phrase</th><th>Meaning</th></tr>
+  <tr><td>Never</td><td>at no time</td></tr>
+  <tr><td>Rarely / Seldom</td><td>almost never</td></tr>
+  <tr><td>Hardly / Scarcely / Barely</td><td>almost not</td></tr>
+  <tr><td>No sooner … than</td><td>immediately after</td></tr>
+  <tr><td>Not until / Not till</td><td>only after a specific time</td></tr>
+  <tr><td>Under no circumstances</td><td>absolutely never</td></tr>
+  <tr><td>On no account</td><td>for no reason / absolutely not</td></tr>
+  <tr><td>In no way</td><td>not at all</td></tr>
+</table>
+<h3>2. Inversion Rule</h3>
+<p><strong>Negative adverb + auxiliary + subject + main verb</strong></p>
+<ul>
+  <li>Never had she seen such a beautiful sunset.</li>
+  <li>Rarely does he speak in public.</li>
+  <li>Scarcely had I arrived when it started raining.</li>
+</ul>
+<h3>3. "No sooner … than" and "Hardly/Scarcely … when"</h3>
+<ul>
+  <li><em>No sooner had</em> she left <em>than</em> the phone rang.</li>
+  <li><em>Hardly had</em> he sat down <em>when</em> the alarm went off.</li>
+  <li>Note: use past perfect + when/than.</li>
+</ul>
+<h3>4. Absolute Prohibitions</h3>
+<ul>
+  <li><em>Under no circumstances should</em> you leave without permission.</li>
+  <li><em>On no account must</em> students use phones during the test.</li>
+  <li><em>In no way does</em> this reflect the views of the committee.</li>
+</ul>`,
+    examples: `<p><strong>Never (inversion):</strong><br>
+<em>Never have I encountered</em> such dedication in a young student.<br>
+<em>Never before had</em> the school produced so many scholarship winners in a single year.</p>
+<p><strong>Rarely / Seldom:</strong><br>
+<em>Rarely does</em> a student of his age demonstrate such maturity and intellectual depth.</p>
+<p><strong>Hardly … when:</strong><br>
+<em>Hardly had</em> the minister finished his speech <em>when</em> protesters began chanting outside.</p>
+<p><strong>No sooner … than:</strong><br>
+<em>No sooner had</em> the new policy been announced <em>than</em> criticism began pouring in from all sides.</p>
+<p><strong>Under no circumstances / On no account:</strong><br>
+<em>Under no circumstances should</em> candidates communicate with one another during the examination.<br>
+<em>On no account must</em> you submit work that has not been checked for errors.</p>`,
+  },
+  {
+    title: "Leçon 1 (Unité 6) : Writing skills – An argumentative essay",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 22,
+    duration: 55,
+    isPremium: false,
+    summary:
+      "Learn to write a persuasive argumentative essay: clear thesis, logical arguments, counter-argument refutation, and a strong conclusion.",
+    keyPoints: `An argumentative essay takes a CLEAR POSITION and defends it throughout
+Introduction includes a hook, background context, and a clear thesis statement
+Body para 1 & 2: your strongest arguments + evidence and examples
+Body para 3: acknowledge the counter-argument, then refute it confidently
+Conclusion: restate thesis in new words + call to action or recommendation
+Persuasive tone: logical, confident, formal; no contractions
+Use: "This essay argues that..." / "Research shows..." / "While it may be argued..."
+Differs from for-and-against: you take sides; opinion is stated from the start`,
+    content: `<h2>How to Write an Argumentative Essay</h2>
+<p>An <strong>argumentative essay</strong> takes a clear <strong>position</strong> on an issue and defends it with logical arguments. Unlike a for-and-against essay, it has a <strong>clear, sustained opinion</strong> throughout.</p>
+<h3>1. Key Differences</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>For and Against</th><th>Argumentative</th></tr>
+  <tr><td>Balanced — both sides equally</td><td>Takes a clear position</td></tr>
+  <tr><td>Opinion only in conclusion</td><td>Position stated from introduction</td></tr>
+  <tr><td>Objective tone</td><td>Persuasive, logical, confident tone</td></tr>
+</table>
+<h3>2. Structure</h3>
+<p><strong>Introduction:</strong> Hook (fact, statistic, or question) + background + thesis: "This essay argues that…"</p>
+<p><strong>Body Para 1 — Strongest argument:</strong> Claim + evidence/examples + link to thesis.</p>
+<p><strong>Body Para 2 — Second argument:</strong> Additional evidence.</p>
+<p><strong>Body Para 3 — Counter-argument + refutation:</strong> Acknowledge opposing view, then refute strongly: "While some argue that… / Although it is true that…"</p>
+<p><strong>Conclusion:</strong> Restate thesis in different words + summarise + recommendation or call to action.</p>
+<h3>3. Useful Language</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Function</th><th>Expressions</th></tr>
+  <tr><td>Stating position</td><td>This essay argues that… / I strongly believe that…</td></tr>
+  <tr><td>Supporting</td><td>Research shows that… / Evidence suggests… / A compelling example is…</td></tr>
+  <tr><td>Counter-argument</td><td>While it may be argued that… / Admittedly, … However,…</td></tr>
+  <tr><td>Concluding</td><td>In conclusion, / Therefore, I urge… / It is clear that…</td></tr>
+</table>`,
+    examples: `<p><strong>Topic: Education should be free at all levels.</strong></p>
+<p><strong>Introduction:</strong><br>
+Over 258 million children worldwide are out of school. This essay firmly argues that free education at all levels is not only a fundamental human right but also an economic necessity for any developing nation.</p>
+<p><strong>Body paragraph 1:</strong><br>
+First and foremost, free education eliminates financial barriers. In Côte d'Ivoire, many gifted students abandon their studies due to high fees. Research shows that nations with free education produce more graduates, driving economic growth and reducing poverty.</p>
+<p><strong>Counter-argument + refutation:</strong><br>
+Admittedly, critics argue that free education is an unsustainable burden on public finances. While this is valid, it ignores the long-term economic returns of an educated workforce. The initial cost is vastly outweighed by long-term benefits.</p>
+<p><strong>Conclusion:</strong><br>
+In conclusion, free education is not a luxury — it is a foundation for social justice. Governments must recognise education as their most powerful investment and work to eliminate all financial barriers to learning.</p>`,
+  },
+  // ── Unité 7 ────────────────────────────────────────────────────────────────
+  {
+    title: "Leçon 2 (Unité 7) : Language function – Giving orders and requests",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 23,
+    duration: 50,
+    isPremium: false,
+    summary:
+      "Master the full spectrum of giving orders and requests: direct imperatives, polite modal forms, and reported orders with the correct infinitive structure.",
+    keyPoints: `The imperative (base verb) gives direct orders: "Sit down / Don't touch that"
+"Do + imperative" adds emphasis or politeness: "Do come in!"
+Polite requests use modals: Can you / Could you / Would you / Will you
+"Would you mind + -ing?" is very polite; answer "No" = you agree
+Reported orders: tell/order/command + object + to-infinitive
+Reported requests: ask/beg/request + object + to-infinitive
+Reported negative: warn/advise/forbid + object + NOT to-infinitive
+"Would you mind + -ing?" expects "No, not at all" (agreement) or "Yes, I would" (refusal)`,
+    content: `<h2>Giving Orders and Requests</h2>
+<p>Orders and requests range from direct commands to polite, indirect forms. Choosing the right form depends on context and formality.</p>
+<h3>1. Direct Orders (Imperative)</h3>
+<ul>
+  <li>Positive: <em>Sit down. / Open your books. / Listen carefully.</em></li>
+  <li>Negative: <em>Don't touch that. / Do not leave without permission.</em></li>
+  <li>With "do" for emphasis: <em>Do come in! / Do be quiet!</em></li>
+</ul>
+<h3>2. Polite Requests</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Structure</th><th>Formality</th><th>Example</th></tr>
+  <tr><td>Can you…?</td><td>Informal</td><td>Can you close the window?</td></tr>
+  <tr><td>Could you…?</td><td>Neutral/polite</td><td>Could you pass me the file?</td></tr>
+  <tr><td>Would you…?</td><td>Formal and polite</td><td>Would you mind signing this?</td></tr>
+  <tr><td>Would you mind + -ing?</td><td>Very polite</td><td>Would you mind waiting a moment?</td></tr>
+  <tr><td>I would be grateful if…</td><td>Very formal/written</td><td>I would be grateful if you could send the report.</td></tr>
+</table>
+<h3>3. Reported Orders and Requests</h3>
+<ul>
+  <li><strong>Tell, order, command + object + to-inf:</strong> The teacher <em>told the students to sit</em> down.</li>
+  <li><strong>Ask, request, beg + object + to-inf:</strong> She <em>asked him to wait</em> outside.</li>
+  <li><strong>Warn, advise + object + not to-inf:</strong> The doctor <em>warned him not to smoke</em>.</li>
+  <li><strong>Forbid + object + to-inf:</strong> The director <em>forbade anyone to enter</em>.</li>
+</ul>
+<h3>4. Permission and Prohibition</h3>
+<ul>
+  <li>Permission: <em>You may / can / are allowed to + base verb</em></li>
+  <li>Prohibition: <em>You must not / cannot / are not allowed to + base verb</em></li>
+</ul>`,
+    examples: `<p><strong>Direct orders:</strong><br>
+<em>Open</em> your exam booklets when told to do so. <em>Do not</em> write anything until the invigilator signals.</p>
+<p><strong>Polite requests (escalating formality):</strong><br>
+"<em>Can you</em> lend me your pen?" (informal)<br>
+"<em>Could you please</em> check this paragraph?" (polite)<br>
+"<em>Would you mind</em> moving your bag?" (very polite)<br>
+"<em>I would be grateful if you could</em> submit your report by Friday." (formal)</p>
+<p><strong>Reported orders:</strong><br>
+The examiner <em>told all candidates to switch off</em> their phones.<br>
+She <em>asked her teacher not to mark</em> her late.<br>
+Parents <em>were reminded to collect</em> their children by 5 p.m.</p>
+<p><strong>"Would you mind":</strong><br>
+"Would you mind closing the door?" — "No, not at all." ✅ (agreement)<br>
+"Would you mind helping me?" — "Yes, I would, I am rather busy." ❌ (refusal)</p>`,
+  },
+  {
+    title: "Leçon 2 (Unité 7) : Language corner – Prepositions & Reported speech",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 24,
+    duration: 55,
+    isPremium: false,
+    summary:
+      "Master prepositions of time and place, common fixed expressions, and the full rules of reported speech including tense backshift and question reporting.",
+    keyPoints: `Prepositions of time: at (specific times) / on (days, dates) / in (months, years, seasons)
+"For" = duration / "since" = starting point to now / "by" = deadline
+Prepositions of place: at (a point) / in (inside) / on (surface)
+Fixed expressions: on time, in time, on purpose, by mistake, in spite of
+Reported speech: tenses shift back one step (present → past / past → past perfect)
+Time expressions change: now → then / today → that day / tomorrow → the next day
+Pronouns change to match the new speaker's perspective
+Reported questions: use if/whether (yes/no) or wh-word + normal word order (no inversion)`,
+    content: `<h2>Part A: Prepositions</h2>
+<h3>1. Prepositions of Time</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Preposition</th><th>Use</th><th>Example</th></tr>
+  <tr><td>at</td><td>specific times; holidays</td><td>at 8 a.m. / at Christmas</td></tr>
+  <tr><td>on</td><td>days and dates</td><td>on Monday / on 15th April</td></tr>
+  <tr><td>in</td><td>months, years, seasons</td><td>in April / in 2026 / in winter</td></tr>
+  <tr><td>for</td><td>duration</td><td>for three hours</td></tr>
+  <tr><td>since</td><td>starting point up to now</td><td>since 2020</td></tr>
+  <tr><td>by</td><td>deadline (not later than)</td><td>by Friday / by 6 p.m.</td></tr>
+  <tr><td>during</td><td>within a period</td><td>during the holidays</td></tr>
+  <tr><td>until/till</td><td>up to a point in time</td><td>until midnight</td></tr>
+</table>
+<h3>2. Prepositions of Place</h3>
+<ul>
+  <li><strong>at</strong> = a point: at the door / at school</li>
+  <li><strong>in</strong> = inside: in the room / in Abidjan</li>
+  <li><strong>on</strong> = on a surface: on the table / on the wall</li>
+  <li><strong>to</strong> = movement towards: go to school</li>
+</ul>
+<h3>3. Fixed Prepositional Phrases</h3>
+<p><em>by mistake, on purpose, in a hurry, on time, in time, in spite of, on behalf of, according to, instead of</em></p>
+<h2>Part B: Reported Speech</h2>
+<h3>Tense Backshift</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Direct speech</th><th>Reported speech</th></tr>
+  <tr><td>"I study"</td><td>said he studied</td></tr>
+  <tr><td>"I am working"</td><td>said she was working</td></tr>
+  <tr><td>"I have finished"</td><td>said he had finished</td></tr>
+  <tr><td>"I went"</td><td>said she had gone</td></tr>
+  <tr><td>"I will help"</td><td>said he would help</td></tr>
+  <tr><td>"I can come"</td><td>said she could come</td></tr>
+  <tr><td>"I must leave"</td><td>said he had to leave</td></tr>
+</table>
+<h3>Time/Place Changes</h3>
+<ul>
+  <li>now → then / today → that day / tomorrow → the next day / here → there</li>
+</ul>
+<h3>Reporting Questions</h3>
+<ul>
+  <li>Yes/No: <em>ask + if/whether</em> → She asked <em>if I was ready</em>.</li>
+  <li>Wh-: <em>ask + wh-word + subject + verb</em> → He asked <em>where I lived</em>.</li>
+</ul>`,
+    examples: `<p><strong>Prepositions of time:</strong><br>
+The ceremony begins <em>at</em> 10 a.m. <em>on</em> Saturday, <em>in</em> May.<br>
+She has been studying <em>since</em> 7 a.m. and will continue <em>until</em> midday.<br>
+Please submit your assignment <em>by</em> Friday at the latest.</p>
+<p><strong>Fixed phrases:</strong><br>
+He arrived <em>on time</em>. <em>In spite of</em> the difficulty, she passed.</p>
+<p><strong>Reported speech — statements:</strong><br>
+Direct: "I am preparing for the Baccalaureate," she said.<br>
+Reported: She said she <em>was preparing</em> for the Baccalaureate.</p>
+<p>Direct: "I have already submitted my project," he told the teacher.<br>
+Reported: He told the teacher he <em>had already submitted</em> his project.</p>
+<p><strong>Reported questions:</strong><br>
+Direct: "Do you understand the lesson?"<br>
+Reported: The teacher asked <em>whether I understood</em> the lesson.</p>
+<p>Direct: "Where did you go after school?"<br>
+Reported: She asked <em>where I had gone</em> after school.</p>`,
+  },
+  {
+    title: "Leçon 2 (Unité 7) : Writing skills – An opinion essay",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 25,
+    duration: 55,
+    isPremium: false,
+    summary:
+      "Learn to write a well-structured opinion essay: stating your position clearly, developing reasons with evidence, acknowledging other views, and concluding persuasively.",
+    keyPoints: `An opinion essay states the writer's clear personal view from the introduction
+Introduction: hook + background + clear statement of opinion ("In my view...")
+Body paragraphs: each focuses on ONE reason/argument + evidence + example
+Optional concession paragraph: briefly acknowledge opposite view, then return to your position
+Conclusion: restate opinion in new words + leave a strong closing thought
+Formal and persuasive tone; no contractions; structured topic sentences
+Use emphatic language: clearly, undoubtedly, there is no doubt that
+Use hedging where appropriate: it seems, may, appear, tend to`,
+    content: `<h2>How to Write an Opinion Essay</h2>
+<p>An <strong>opinion essay</strong> presents the writer's personal viewpoint on a controversial topic. The goal is to persuade the reader using well-structured arguments and formal language.</p>
+<h3>1. Key Features</h3>
+<ul>
+  <li>Writer's opinion clearly stated from the beginning</li>
+  <li>Formal, persuasive tone throughout</li>
+  <li>Uses hedging (may, might, seems) and emphatic language (clearly, undoubtedly)</li>
+  <li>No contractions; structured paragraphs with topic sentences</li>
+  <li>Ends with a strong conclusion reaffirming the position</li>
+</ul>
+<h3>2. Structure</h3>
+<p><strong>Introduction:</strong> Hook → state your opinion: <em>"In my view…" / "I firmly believe that…"</em></p>
+<p><strong>Body Para 1:</strong> First reason + explanation + example.</p>
+<p><strong>Body Para 2:</strong> Second reason + development.</p>
+<p><strong>Body Para 3 (Optional — Concession):</strong> <em>"Admittedly, some argue that…"</em> — then return to your position.</p>
+<p><strong>Conclusion:</strong> Restate opinion in new words + summarise + thought-provoking final statement.</p>
+<h3>3. Useful Language</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Function</th><th>Expressions</th></tr>
+  <tr><td>Stating opinion</td><td>In my view, / I am convinced that… / Personally, I believe…</td></tr>
+  <tr><td>Adding reasons</td><td>First of all, / Furthermore, / What is more,</td></tr>
+  <tr><td>Concession</td><td>Admittedly, / It is true that… / Although…</td></tr>
+  <tr><td>Emphasising</td><td>Clearly, / Undoubtedly, / There is no doubt that…</td></tr>
+  <tr><td>Concluding</td><td>In conclusion, / Ultimately, / All in all,</td></tr>
+</table>`,
+    examples: `<p><strong>Topic: Young people today are too dependent on technology.</strong></p>
+<p><strong>Introduction:</strong><br>
+Have you ever seen a teenager look up from their phone long enough to have a meaningful conversation? In my view, the over-reliance of young people on technology is a serious problem that undermines their social skills, creativity, and independence.</p>
+<p><strong>Body para 1:</strong><br>
+First of all, excessive technology use significantly damages young people's ability to communicate face to face. Studies show that those spending more than four hours a day on screens struggle with eye contact and empathy.</p>
+<p><strong>Concession:</strong><br>
+Admittedly, technology offers remarkable learning opportunities. However, access to information is only beneficial when young people develop the discipline to use it wisely — a skill clearly lacking among many today.</p>
+<p><strong>Conclusion:</strong><br>
+In conclusion, while technology is a powerful tool, it must not become a crutch. I firmly believe young people need digital discipline from an early age. Ultimately, the measure of a generation is not how many apps it uses, but how well it thinks, creates, and connects.</p>`,
+  },
+  // ── Unité 8 ────────────────────────────────────────────────────────────────
+  {
+    title: "Leçon 3 (Unité 8) : Language function – Verb patterns",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 26,
+    duration: 55,
+    isPremium: false,
+    summary:
+      "Master key verb patterns in English: verb + that-clause, verb + wh-clause, verb + to-infinitive, verb + gerund, and impersonal constructions.",
+    keyPoints: `Verb + that-clause: say/think/believe/know/feel/admit/claim + (that) + subject + verb
+"That" is optional in informal English but required in formal writing
+Verb + wh-clause (embedded questions): use statement word order (NOT question order)
+"I don't know where she is" NOT "I don't know where is she"
+Verb + to-infinitive: decide, seem, appear, hope, manage, refuse, expect
+Verb + gerund (-ing): enjoy, avoid, admit, deny, finish, keep, risk, suggest
+Verb + object + complement: consider (him talented) / call (it a success) / make (them work)
+Impersonal constructions: "It seems that..." / "It is important that..." / "It was reported that..."`,
+    content: `<h2>Referring to What Follows a Verb Using Verb Patterns</h2>
+<p>In English, many verbs are followed by a specific complement — a <strong>that-clause</strong>, a <strong>wh-clause</strong>, a <strong>to-infinitive</strong>, or a <strong>gerund</strong>.</p>
+<h3>1. Verb + That-Clause</h3>
+<p>Common verbs: <em>say, think, believe, know, feel, hope, expect, suggest, admit, claim, confirm, deny, realise, understand, agree, decide</em></p>
+<ul>
+  <li>She <em>believes (that) education</em> is the key to success.</li>
+  <li>He <em>admitted (that) he had made</em> a mistake.</li>
+  <li>Scientists <em>confirm that climate change</em> is accelerating.</li>
+</ul>
+<h3>2. Verb + Wh-Clause (Embedded Questions)</h3>
+<p>Use <em>wh-word + subject + verb</em> (NOT question word order).</p>
+<p>Common verbs: <em>know, wonder, ask, tell, show, explain, decide, understand, forget, remember</em></p>
+<ul>
+  <li>I don't know <em>where she has gone</em>. (NOT: where has she gone)</li>
+  <li>Could you explain <em>how this works</em>?</li>
+</ul>
+<h3>3. Verb + to-Infinitive</h3>
+<ul>
+  <li>She <em>decided to apply</em> for the position.</li>
+  <li>They <em>appear to have completed</em> the project early.</li>
+</ul>
+<h3>4. Verb + -ing (Gerund)</h3>
+<ul>
+  <li>She <em>enjoys writing</em> poetry. / He <em>avoids making</em> eye contact.</li>
+</ul>
+<h3>5. Verb + Object + Complement</h3>
+<ul>
+  <li>Object + adjective: They <em>consider him talented</em>.</li>
+  <li>Object + noun: She <em>called it a masterpiece</em>.</li>
+  <li>Object + bare infinitive: She <em>made the students rewrite</em> the essay.</li>
+</ul>
+<h3>6. Impersonal Constructions</h3>
+<ul>
+  <li><em>It seems that</em> the situation is improving.</li>
+  <li><em>It is important that</em> students revise regularly.</li>
+  <li><em>It was reported that</em> the results were outstanding.</li>
+</ul>`,
+    examples: `<p><strong>Verb + that-clause:</strong><br>
+The committee <em>agreed that</em> the new curriculum was beneficial to all students.<br>
+Research <em>confirms that</em> reading regularly improves vocabulary and comprehension.</p>
+<p><strong>Verb + wh-clause:</strong><br>
+Many students do not <em>understand how</em> the grading system works.<br>
+Could you <em>explain what</em> is expected of us in the final examination?</p>
+<p><strong>Verb + object + complement:</strong><br>
+The judges <em>declared her the winner</em> of the national essay competition.<br>
+The school director <em>made all students attend</em> the compulsory orientation session.</p>
+<p><strong>Impersonal constructions:</strong><br>
+<em>It is widely believed that</em> a strong foundation in literacy determines long-term academic success.<br>
+<em>It appears that</em> the number of students choosing science subjects is steadily increasing.</p>`,
+  },
+  {
+    title: "Leçon 3 (Unité 8) : Language corner – Question types in English",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 27,
+    duration: 50,
+    isPremium: false,
+    summary:
+      "Master all English question types: yes/no, wh-questions, tag questions, indirect questions, and rhetorical questions — with correct word order for each.",
+    keyPoints: `Yes/No questions: invert subject and auxiliary (be, have, do, modal)
+Use do/does/did when there is no auxiliary verb in the statement
+Wh-questions: wh-word + auxiliary + subject + verb
+Exception: when wh-word IS the subject, no inversion ("Who called you?")
+Tag questions: positive statement → negative tag; negative statement → positive tag
+Irregular tags: "I am right, aren't I?" / "Let's go, shall we?"
+Indirect questions: question word + normal word order (NO inversion, NO do/does/did)
+Rhetorical questions are not genuine — they make a point or persuade`,
+    content: `<h2>Question Types in English</h2>
+<h3>1. Yes/No Questions</h3>
+<p>Formed by inverting subject and auxiliary verb.</p>
+<ul>
+  <li><em>Is</em> she a student? / <em>Have</em> you seen the film? / <em>Does</em> he study here?</li>
+  <li>If no auxiliary verb exists, use <strong>do/does/did</strong>: <em>Does</em> she speak English?</li>
+</ul>
+<h3>2. Wh- Questions</h3>
+<p>Begin with: <strong>who, what, when, where, why, which, how, how long, how many, how much</strong></p>
+<p>Structure: <strong>Wh-word + auxiliary + subject + main verb</strong></p>
+<ul>
+  <li><em>What do</em> you study? / <em>Where does</em> she live?</li>
+  <li>When wh-word IS the subject — no inversion: <em>Who called you? / What happened?</em></li>
+</ul>
+<h3>3. Tag Questions</h3>
+<ul>
+  <li>Positive statement → Negative tag: She is a doctor, <em>isn't she</em>?</li>
+  <li>Negative statement → Positive tag: He doesn't like it, <em>does he</em>?</li>
+  <li>Irregular: I am right, <em>aren't I</em>? / Let's go, <em>shall we</em>? / Don't be late, <em>will you</em>?</li>
+</ul>
+<h3>4. Indirect / Embedded Questions</h3>
+<p>Used to ask politely. <strong>No inversion — use normal word order.</strong></p>
+<ul>
+  <li>Direct: Where is the station? → Indirect: <em>Could you tell me where the station is</em>?</li>
+  <li>Direct: Is she available? → Indirect: <em>I was wondering if she is available</em>.</li>
+</ul>
+<h3>5. Rhetorical Questions</h3>
+<p>Used for emphasis or persuasion — the speaker does not expect an answer.</p>
+<ul>
+  <li><em>Is there anyone who does not want a better future?</em></li>
+  <li><em>What is the point of studying if you don't apply what you learn?</em></li>
+</ul>
+<h3>6. Choice Questions (Either/Or)</h3>
+<ul>
+  <li><em>Would you prefer tea or coffee? / Are you going by bus or by taxi?</em></li>
+</ul>`,
+    examples: `<p><strong>Yes/No questions:</strong><br>
+<em>Has she submitted</em> her application yet? <em>Did you attend</em> the ceremony yesterday?</p>
+<p><strong>Wh-questions:</strong><br>
+<em>What subjects does</em> she study at Terminale?<br>
+<em>Who discovered</em> the problem first? (subject — no inversion)<br>
+<em>How many students have passed</em> the Baccalaureate this year?</p>
+<p><strong>Tag questions:</strong><br>
+The exam results were excellent, <em>weren't they</em>?<br>
+She hasn't revised yet, <em>has she</em>?<br>
+Let's celebrate our success, <em>shall we</em>?</p>
+<p><strong>Indirect questions:</strong><br>
+Direct: "Where does the headmaster's office?" →<br>
+Indirect: <em>Could you tell me where the headmaster's office is</em>? (no inversion)<br>
+Direct: "Is the school open on Saturday?" →<br>
+Indirect: <em>I would like to know whether the school is open on Saturday</em>.</p>
+<p><strong>Rhetorical question:</strong><br>
+<em>Can we truly claim to be developing</em> if half our children have no access to quality education?</p>`,
+  },
+  {
+    title: "Leçon 3 (Unité 8) : Writing skills – A covering letter",
+    subjectId: ANGLAIS_SUBJECT_ID,
+    series: "ALL",
+    order: 28,
+    duration: 50,
+    isPremium: false,
+    summary:
+      "Learn to write a compelling covering letter for a job or scholarship application: formal layout, confident language, tailored motivation, and a professional closing.",
+    keyPoints: `A covering letter accompanies a CV when applying for a job, scholarship, or programme
+Formal register: no contractions, no slang; professional and confident tone
+Layout: your address → date → recipient address → subject line → salutation
+Para 1: state the position you are applying for, where you saw it, and your interest
+Para 2: highlight relevant qualifications, skills, and experience with specific examples
+Para 3: show you know the organisation and explain why you want THIS specific role
+Para 4: request an interview, mention enclosed CV, thank the reader
+"Yours sincerely" if you used their name; "Yours faithfully" if "Dear Sir/Madam"
+Tailor each letter to the specific role — never send a generic letter`,
+    content: `<h2>How to Write a Covering Letter (Cover Letter)</h2>
+<p>A <strong>covering letter</strong> is a formal letter sent alongside a CV when applying for a job, scholarship, or programme. Its purpose is to introduce yourself, explain your interest and suitability, and persuade the recruiter to read your full application.</p>
+<h3>1. Key Features</h3>
+<ul>
+  <li>Formal register — no contractions, no slang</li>
+  <li>Confident, professional, and concise (ideally one page)</li>
+  <li>Tailored to the specific role or programme</li>
+  <li>Highlights your most relevant skills and experience</li>
+</ul>
+<h3>2. Structure / Layout</h3>
+<p><strong>Your full name and address</strong> (top right)<br>
+<strong>Date</strong><br>
+<strong>Recipient's name/title and address</strong> (left-aligned)<br>
+<strong>Subject line:</strong> RE: Application for [Position / Scholarship]</p>
+<p><strong>Salutation:</strong> Dear Mr/Mrs/Ms [Surname], — OR — Dear Sir/Madam</p>
+<p><strong>Para 1 — Introduction:</strong> State the position you are applying for, where you saw it, and express genuine interest.</p>
+<p><strong>Para 2 — Qualifications and skills:</strong> Highlight relevant qualifications and experience. Use specific examples — connect them to the role.</p>
+<p><strong>Para 3 — Your motivation:</strong> Show you have researched the organisation. Explain why you want THIS specific role.</p>
+<p><strong>Para 4 — Closing:</strong> Express eagerness for an interview. Mention your CV is enclosed. Thank the reader.</p>
+<p><strong>Sign-off:</strong> Yours sincerely (if name used) / Yours faithfully (if Dear Sir/Madam)</p>
+<h3>3. Useful Expressions</h3>
+<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">
+  <tr><th>Function</th><th>Expressions</th></tr>
+  <tr><td>Applying</td><td>I am writing to apply for… / I wish to apply for the position of…</td></tr>
+  <tr><td>Qualifications</td><td>I hold a Baccalaureate in… / I have experience in… / I am proficient in…</td></tr>
+  <tr><td>Motivation</td><td>I am particularly drawn to… / Your organisation is renowned for…</td></tr>
+  <tr><td>Interview</td><td>I would welcome the opportunity to discuss… / I am available at your convenience.</td></tr>
+  <tr><td>Closing</td><td>I look forward to hearing from you. / Please find my CV enclosed.</td></tr>
+</table>`,
+    examples: `<p>Kouassi Ama Bénédicte<br>25, Rue des Jardins, Cocody, Abidjan<br>9th April 2026</p>
+<p>The Scholarship Committee<br>Foundation for African Excellence, Abidjan</p>
+<p><strong>RE: Application for the Excellence Scholarship in Sciences</strong></p>
+<p>Dear Sir/Madam,</p>
+<p>I am writing to apply for the Excellence Scholarship in Sciences, which I came across on your official website. I am deeply inspired by your commitment to developing the next generation of African scientists.</p>
+<p>I am currently a Terminale D student at Lycée Moderne de Bingerville, where I have consistently ranked first in Mathematics, Physics, and Chemistry. Last year, I represented my school in the national science olympiad, where my team placed second. I aspire to study biomedical engineering.</p>
+<p>Your foundation is renowned for the mentorship programmes it offers alongside financial support — a combination I consider invaluable. I am confident this scholarship will enable me to pursue my studies at the highest level.</p>
+<p>I would welcome the opportunity to discuss my application at your convenience. Please find my academic records enclosed. I thank you sincerely for taking the time to consider my application.</p>
+<p>Yours faithfully,<br><strong>Kouassi Ama Bénédicte</strong></p>`,
+  },
 ];
 
 export async function seedAnglaisLessons(): Promise<void> {
@@ -871,7 +1427,7 @@ export async function seedAnglaisLessons(): Promise<void> {
         ),
       );
 
-    if (existing.length >= 15) {
+    if (existing.length >= 24) {
       logger.info("Anglais seed lessons already present — skipping");
       return;
     }
