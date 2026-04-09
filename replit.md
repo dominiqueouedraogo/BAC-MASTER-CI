@@ -149,3 +149,6 @@ artifacts-monorepo/
 - `pnpm --filter @workspace/bac-master-ci run dev` - Run frontend
 - `pnpm --filter @workspace/db run push` - Push DB schema changes
 - `pnpm --filter @workspace/api-spec run codegen` - Regenerate API client
+- const cors = require("cors");
+app.use(cors());
+

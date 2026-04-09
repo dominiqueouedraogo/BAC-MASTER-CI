@@ -904,3 +904,75 @@ seed().catch((err) => {
   mongoose.disconnect();
   process.exit(1);
 });
+// URL de ton backend (à adapter)
+const API_URL = "https://ton-app.replit.app/api";
+
+// Charger les cours
+async function loadCourses() {
+  try {
+    const response = await fetch(`${API_URL}/courses`);
+    const data = await response.json();
+
+    console.log("Cours reçus :", data);
+
+    const container = document.getElementById("courses-container");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>Aucun cours disponible</p>";
+      return;
+    }
+
+    data.forEach(course => {
+      const div = document.createElement("div");
+      div.className = "course-card";
+      div.innerHTML = `
+        <h3>${course.title}</h3>
+        <p>${course.description}</p>
+      `;
+      container.appendChild(div);
+    });
+
+  } catch (error) {
+    console.error("Erreur chargement cours :", error);
+  }
+}
+
+// Charger les utilisateurs (ADMIN)
+async function loadUsers() {
+  try {
+    const response = await fetch(`${API_URL}/users`);
+    const data = await response.json();
+
+    console.log("Utilisateurs :", data);
+
+    const container = document.getElementById("users-container");
+    container.innerHTML = "";
+
+    data.forEach(user => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <p>${user.name} (${user.email})</p>
+      `;
+      container.appendChild(div);
+    });
+
+  } catch (error) {
+    console.error("Erreur chargement utilisateurs :", error);
+  }
+}
+
+// Lancer au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+  loadCourses();
+  loadUsers(); // uniquement page admin
+});
+app.get("/api/courses", async (req, res) => {
+  const courses = await db.select().from(coursesTable);
+  res.json(courses);
+});
+
+app.get("/api/users", async (req, res) => {
+  const users = await db.select().from(usersTable);
+  res.json(users);
+});
