@@ -5,6 +5,7 @@ import { seedSvtDLessons } from "./lib/seed-svt-d";
 import { seedMathsDLessons } from "./lib/seed-maths-d";
 import { seedPhysChimDLessons } from "./lib/seed-phys-chim-d";
 import { seedPhiloLessons } from "./lib/seed-philosophie";
+import { seedFrancaisLessons } from "./lib/seed-francais";
 
 const rawPort = process.env["PORT"];
 
@@ -46,5 +47,9 @@ app.listen(port, (err) => {
 
   seedPhiloLessons().catch((e) =>
     logger.error({ err: e }, "Philosophie startup seed failed"),
+  );
+
+  seedFrancaisLessons().catch((e) =>
+    logger.error({ err: e }, "Français startup seed failed"),
   );
 });
