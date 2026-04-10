@@ -143,12 +143,25 @@ artifacts-monorepo/
 - `reviews` - Lesson ratings/comments
 - `chat_messages` - AI chatbot history
 
+## Seeded Content
+
+### Anglais (subject_id=7, series=ALL)
+- 24 lessons (orders 5-28), covering Unités 1-8 of Terminale programme
+- 76 exercises (MCQ + True/False), 3 per lesson
+- Seed file: `artifacts/api-server/src/lib/seed-anglais.ts`
+
+### SVT D (subject_id=4, series=D)
+- 21 lessons (orders 5-25), covering 5 thèmes: Communication dans l'organisme, Reproduction, Ressources minières CI, Sols et pédologie, Génétique et évolution
+- 63+ exercises (MCQ + True/False), 3 per lesson
+- Seed file: `artifacts/api-server/src/lib/seed-svt-d.ts`
+
+### Series filter fix
+- `exercises.ts` route uses `OR(series=X, series='ALL')` so that `series='ALL'` exercises show for all series
+
 ## Development Commands
 
 - `pnpm --filter @workspace/api-server run dev` - Run API server
 - `pnpm --filter @workspace/bac-master-ci run dev` - Run frontend
 - `pnpm --filter @workspace/db run push` - Push DB schema changes
 - `pnpm --filter @workspace/api-spec run codegen` - Regenerate API client
-- const cors = require("cors");
-app.use(cors());
 
