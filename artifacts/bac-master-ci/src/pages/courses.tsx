@@ -7,8 +7,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { BookOpen, ChevronRight, Lock, Play, FileText, Headphones } from "lucide-react";
+import { BookOpen, ChevronRight, Lock, Play, FileText, Headphones, Atom, FlaskConical } from "lucide-react";
 import { cn, formatTime } from "@/lib/utils";
+
+const CHIMIE_KEYWORDS = [
+  "avancement", "acido", "oxydoréduction", "organique", "hydrocarbure",
+  "alcool", "aldéhyde", "cétone", "acide carboxylique", "ester",
+  "saponification", "chimie générale", "chimie organique", "chimique",
+  "composés organiques", "alcanes", "alcènes", "alcynes",
+];
+
+function isChimieLesson(title: string): boolean {
+  const lower = title.toLowerCase();
+  return CHIMIE_KEYWORDS.some((k) => lower.includes(k));
+}
+
+function isPhysiqueChimieSubject(name: string): boolean {
+  const lower = name.toLowerCase();
+  return lower.includes("physique") && lower.includes("chimie");
+}
 
 export default function Courses() {
   const { user } = useAuth();
@@ -80,14 +97,13 @@ export default function Courses() {
             <Badge className="bg-secondary text-secondary-foreground hover:bg-secondary">Série {activeSeries}</Badge>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {loadingLessons ? (
-              Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-32 rounded-2xl" />)
-            ) : lessons?.length === 0 ? (
-              <div className="col-span-full py-12 text-center text-muted-foreground border border-dashed rounded-2xl">
-                Aucun cours disponible pour cette matière actuellement.
-              </div>
-            ) : lessons?.map((lesson) => (
+          {(() => {
+            const subjectName = subjects?.find(s => s.id === selectedSubject)?.name ?? "";
+            const splitByPart = isPhysiqueChimieSubject(subjectName);
+            const physiqueLessons = splitByPart ? (lessons ?? []).filter(l => !isChimieLesson(l.title)) : [];
+            const chimieLessons  = splitByPart ? (lessons ?? []).filter(l =>  isChimieLesson(l.title)) : [];
+
+            const LessonCard = ({ lesson }: { lesson: typeof lessons[0] }) => (
               <Link key={lesson.id} href={`/lessons/${lesson.id}`}>
                 <div className="bg-card border border-border p-5 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/40 transition-all flex flex-col h-full relative overflow-hidden group">
                   {lesson.isPremium && !user?.isPremium && (
@@ -97,17 +113,14 @@ export default function Courses() {
                       </div>
                     </div>
                   )}
-                  
                   <h3 className="font-bold text-lg mb-2 pr-8 group-hover:text-primary transition-colors">{lesson.title}</h3>
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">{lesson.summary}</p>
-                  
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
                     <div className="flex items-center gap-3 text-muted-foreground">
                       {lesson.videoUrl && <Play className="w-4 h-4" title="Vidéo disponible" />}
                       {lesson.audioUrl && <Headphones className="w-4 h-4" title="Audio disponible" />}
                       {lesson.pdfUrl && <FileText className="w-4 h-4" title="PDF disponible" />}
                     </div>
-                    
                     {lesson.isPremium && !user?.isPremium ? (
                       <Lock className="w-5 h-5 text-amber-500" />
                     ) : (
@@ -118,8 +131,65 @@ export default function Courses() {
                   </div>
                 </div>
               </Link>
-            ))}
-          </div>
+            );
+
+            if (loadingLessons) {
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-32 rounded-2xl" />)}
+                </div>
+              );
+            }
+
+            if (!lessons?.length) {
+              return (
+                <div className="py-12 text-center text-muted-foreground border border-dashed rounded-2xl">
+                  Aucun cours disponible pour cette matière actuellement.
+                </div>
+              );
+            }
+
+            if (splitByPart) {
+              return (
+                <div className="space-y-10">
+                  {physiqueLessons.length > 0 && (
+                    <section>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                          <Atom className="w-5 h-5 text-blue-500" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground">Physique</h3>
+                        <Badge variant="outline" className="ml-1">{physiqueLessons.length} leçons</Badge>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {physiqueLessons.map(lesson => <LessonCard key={lesson.id} lesson={lesson} />)}
+                      </div>
+                    </section>
+                  )}
+                  {chimieLessons.length > 0 && (
+                    <section>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
+                          <FlaskConical className="w-5 h-5 text-green-500" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground">Chimie</h3>
+                        <Badge variant="outline" className="ml-1">{chimieLessons.length} leçons</Badge>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {chimieLessons.map(lesson => <LessonCard key={lesson.id} lesson={lesson} />)}
+                      </div>
+                    </section>
+                  )}
+                </div>
+              );
+            }
+
+            return (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {lessons.map(lesson => <LessonCard key={lesson.id} lesson={lesson} />)}
+              </div>
+            );
+          })()}
         </div>
       )}
     </MainLayout>
