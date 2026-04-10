@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { Link } from "wouter";
-import { useGetExercises, useGetSubjects, GetExercisesDifficulty, GetExercisesSeries, GetSubjectsSeries } from "@workspace/api-client-react";
+import { useState, useEffect } from "react";
+import { Link, useSearch } from "wouter";
+import { useGetExercises, useGetSubjects, GetExercisesDifficulty, GetExercisesSeries } from "@workspace/api-client-react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { useAuth } from "@/hooks/use-auth";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BrainCircuit, ChevronRight, Lock } from "lucide-react";
@@ -12,23 +11,41 @@ import { getDifficultyColor } from "@/lib/utils";
 
 export default function Exercises() {
   const { user } = useAuth();
+  const search = useSearch();
+  const params = new URLSearchParams(search);
+  const urlSubject = params.get("subject") || "all";
+
   const [series, setSeries] = useState<GetExercisesSeries>(user?.series as GetExercisesSeries || "A");
-  const [subjectId, setSubjectId] = useState<string>("all");
+  const [subjectId, setSubjectId] = useState<string>(urlSubject);
   const [difficulty, setDifficulty] = useState<string>("all");
 
+  useEffect(() => {
+    const p = new URLSearchParams(search);
+    const s = p.get("subject") || "all";
+    setSubjectId(s);
+  }, [search]);
+
   const { data: subjects } = useGetSubjects({ series });
-  
+
   const queryParams: any = { series };
   if (subjectId !== "all") queryParams.subjectId = parseInt(subjectId);
   if (difficulty !== "all") queryParams.difficulty = difficulty as GetExercisesDifficulty;
 
   const { data: exercises, isLoading } = useGetExercises(queryParams);
 
+  const activeSubjectName = subjectId !== "all"
+    ? subjects?.find(s => s.id.toString() === subjectId)?.name
+    : null;
+
   return (
     <MainLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold text-foreground">Exercices & Quiz</h1>
-        <p className="text-muted-foreground mt-1">Entraînez-vous avec des centaines de QCM et sujets types.</p>
+        <p className="text-muted-foreground mt-1">
+          {activeSubjectName
+            ? `Exercices de ${activeSubjectName} — entraînez-vous avec des QCM et questions types.`
+            : "Entraînez-vous avec des centaines de QCM et sujets types."}
+        </p>
       </div>
 
       <div className="bg-card border border-border p-4 rounded-2xl shadow-sm mb-8 flex flex-col md:flex-row gap-4">
@@ -53,7 +70,9 @@ export default function Exercises() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Toutes les matières</SelectItem>
-              {subjects?.map(s => <SelectItem key={s.id} value={s.id.toString()}>{s.name}</SelectItem>)}
+              {subjects?.map(s => (
+                <SelectItem key={s.id} value={s.id.toString()}>{s.name}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -72,6 +91,19 @@ export default function Exercises() {
           </Select>
         </div>
       </div>
+
+      {activeSubjectName && (
+        <div className="mb-4 flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Filtré pour :</span>
+          <span className="text-sm font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">{activeSubjectName}</span>
+          <button
+            onClick={() => setSubjectId("all")}
+            className="text-xs text-muted-foreground underline hover:text-foreground ml-1"
+          >
+            Effacer le filtre
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {isLoading ? (
@@ -98,15 +130,15 @@ export default function Exercises() {
                       {exercise.difficulty === 'easy' ? 'Facile' : exercise.difficulty === 'medium' ? 'Moyen' : 'Difficile'}
                     </span>
                   </div>
-                  
+
                   <h3 className="font-bold text-foreground text-lg mb-6 line-clamp-3 leading-snug flex-1">
                     {exercise.question}
                   </h3>
 
                   <Link href={`/exercises/${exercise.id}`}>
                     <button className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all ${
-                      exercise.isPremium && !user?.isPremium 
-                        ? "bg-muted text-muted-foreground cursor-not-allowed" 
+                      exercise.isPremium && !user?.isPremium
+                        ? "bg-muted text-muted-foreground cursor-not-allowed"
                         : "bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
                     }`}>
                       Commencer l'exercice <ChevronRight className="w-4 h-4" />

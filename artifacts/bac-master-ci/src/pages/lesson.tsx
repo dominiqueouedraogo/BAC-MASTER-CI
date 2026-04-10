@@ -282,9 +282,9 @@ export default function LessonDetail() {
                 ))}
               </div>
               <div className="mt-6 pt-4 border-t border-border">
-                <Link href="/exercises">
+                <Link href={`/exercises?subject=${lesson.subjectId}`}>
                   <Button variant="outline" className="rounded-xl gap-2">
-                    <BrainCircuit className="w-4 h-4" /> Voir tous les exercices interactifs
+                    <BrainCircuit className="w-4 h-4" /> Voir tous les exercices de {lesson.subjectName}
                     <ChevronRight className="w-4 h-4" />
                   </Button>
                 </Link>
