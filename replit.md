@@ -155,6 +155,11 @@ artifacts-monorepo/
 - 63+ exercises (MCQ + True/False), 3 per lesson
 - Seed file: `artifacts/api-server/src/lib/seed-svt-d.ts`
 
+### Maths D (subject_id=1, series=D)
+- 19 lessons (orders 5-23), covering 7 thèmes: Calculs algébriques (ℝ, polynômes, équations, complexes, Moivre/Euler), Fonctions numériques (généralités, limites, dérivées, exp/ln), Calcul intégral, Suites, Probabilités (élémentaires, conditionnelles/Bayes, variables aléatoires), Géométrie complexes, Équations différentielles
+- 57 exercises (MCQ + True/False), 3 per lesson
+- Seed file: `artifacts/api-server/src/lib/seed-maths-d.ts`
+
 ### Series filter fix
 - `exercises.ts` route uses `OR(series=X, series='ALL')` so that `series='ALL'` exercises show for all series
 

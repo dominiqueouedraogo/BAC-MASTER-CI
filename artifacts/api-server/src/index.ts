@@ -2,6 +2,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { seedAnglaisLessons } from "./lib/seed-anglais";
 import { seedSvtDLessons } from "./lib/seed-svt-d";
+import { seedMathsDLessons } from "./lib/seed-maths-d";
 
 const rawPort = process.env["PORT"];
 
@@ -31,5 +32,9 @@ app.listen(port, (err) => {
 
   seedSvtDLessons().catch((e) =>
     logger.error({ err: e }, "SVT D startup seed failed"),
+  );
+
+  seedMathsDLessons().catch((e) =>
+    logger.error({ err: e }, "Maths D startup seed failed"),
   );
 });
