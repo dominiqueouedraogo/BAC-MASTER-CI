@@ -155,6 +155,11 @@ artifacts-monorepo/
 - 63+ exercises (MCQ + True/False), 3 per lesson
 - Seed file: `artifacts/api-server/src/lib/seed-svt-d.ts`
 
+### Physique-Chimie D (subject_id=3, series=D)
+- 29 lessons (orders 3-31), covering 7 thèmes: Mécanique (cinématique, Newton, énergie), Électricité & EM (RC, RL, RLC, Laplace/induction), Ondes & signaux, Optique géométrique (Snell-Descartes, lentilles, instruments), Physique nucléaire & radioactivité, Chimie générale (avancement, acido-base, rédox, équilibres), Chimie organique (hydrocarbures, familles, réactions)
+- 87 exercises (MCQ + True/False), 3 per lesson
+- Seed file: `artifacts/api-server/src/lib/seed-phys-chim-d.ts`
+
 ### Maths D (subject_id=1, series=D)
 - 19 lessons (orders 5-23), covering 7 thèmes: Calculs algébriques (ℝ, polynômes, équations, complexes, Moivre/Euler), Fonctions numériques (généralités, limites, dérivées, exp/ln), Calcul intégral, Suites, Probabilités (élémentaires, conditionnelles/Bayes, variables aléatoires), Géométrie complexes, Équations différentielles
 - 57 exercises (MCQ + True/False), 3 per lesson

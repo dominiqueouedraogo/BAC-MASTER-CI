@@ -3,6 +3,7 @@ import { logger } from "./lib/logger";
 import { seedAnglaisLessons } from "./lib/seed-anglais";
 import { seedSvtDLessons } from "./lib/seed-svt-d";
 import { seedMathsDLessons } from "./lib/seed-maths-d";
+import { seedPhysChimDLessons } from "./lib/seed-phys-chim-d";
 
 const rawPort = process.env["PORT"];
 
@@ -36,5 +37,9 @@ app.listen(port, (err) => {
 
   seedMathsDLessons().catch((e) =>
     logger.error({ err: e }, "Maths D startup seed failed"),
+  );
+
+  seedPhysChimDLessons().catch((e) =>
+    logger.error({ err: e }, "Physique-Chimie D startup seed failed"),
   );
 });
