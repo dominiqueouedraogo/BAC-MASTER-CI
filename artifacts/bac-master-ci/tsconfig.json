@@ -22,4 +22,9 @@
       "path": "../../lib/replit-auth-web"
     }
   ]
+{
+  "compilerOptions": {
+    "noImplicitAny": false
+  }
+}
 }
