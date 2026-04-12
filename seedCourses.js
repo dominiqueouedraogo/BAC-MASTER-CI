@@ -977,3 +977,12 @@ app.get("/api/users", async (req, res) => {
   res.json(users);
 });
 console.log("DB URL:", process.env.DATABASE_URL);
+import express from "express";
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.json({ message: "Hello depuis Vercel 🚀" });
+});
+
+export default app;
