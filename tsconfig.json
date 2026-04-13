@@ -22,4 +22,11 @@
       "path": "./lib/replit-auth-web"
     }
   ]
+{
+  "compilerOptions": {
+    "types": ["node", "vite/client"],
+    "skipLibCheck": true,
+    "strict": true
+  }
+}
 }
