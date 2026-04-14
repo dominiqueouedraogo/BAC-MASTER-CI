@@ -1,1 +1,30 @@
-{"compilerOptions":{"skipLibCheck":true,"strict":false}}
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "jsx": "react-jsx",
+
+    "module": "ESNext",
+    "moduleResolution": "Node",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["artifacts/bac-master-ci/src/*"]
+    },
+
+    "strict": false,
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+
+  "include": [
+    "artifacts/bac-master-ci/src"
+  ],
+
+  "exclude": [
+    "node_modules"
+  ]
+}
