@@ -1,0 +1,60 @@
+[33m8b55221[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m backup avant restauration
+[33m0c4b45a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: ignore ts errors for build
+[33m92ebc5d[m fix tsconfig for vercel
+[33m993f65e[m fix build for vercel deployment
+[33m42a287c[m fix install scripts for vercel
+[33m990f6f0[m Update tsconfig.json
+[33m759a64d[m Update tsconfig.json
+[33m602dcf4[m Create Vite-env.d.ts
+[33m529631e[m Update package.json
+[33md3c1b9b[m Update seedCourses.js
+[33mf0a8ecf[m Create index.js
+[33m38c479e[m Add Vercel serverless handler for Express app with initialization seeding
+[33mf48cb9f[m Update tsconfig.json
+[33m2e37811[m[33m ([m[1;31mgitsafe-backup/main[m[33m, [m[1;31mgitsafe-backup/HEAD[m[33m)[m Update agent skills to improve functionality and user experience
+[33m6ce2f72[m Add 15 new mathematics lessons for series C
+[33mcd4bd81[m Add French lessons and exercises to the learning platform
+[33m937e157[m Add all philosophy lessons and exercises for all series
+[33ma7ac413[m Divide Physique-Chimie lessons into distinct sections for clarity
+[33m27d8d28[m Add 29 new physics and chemistry lessons for Serie D
+[33ma33d3e0[m Add 19 new math lessons and exercises for Série D students
+[33mbd3815f[m Add lessons and exercises for SVT Series D biology courses
+[33m7cbc64b[m Published your App
+[33m520aafa[m Update exercises to show relevant content and improve navigation
+[33m3397737[m Add new English lessons covering emphasizing, orders, and verb patterns
+[33m6419897[m Add new English lessons covering grammar and writing skills
+[33mf5979af[m Published your App
+[33m7357c83[m Published your App
+[33mb224b51[m Add six new English lessons to the course platform
+[33m35f3d7a[m Published your App
+[33mb407256[m Published your App
+[33m8cc85d3[m Published your App
+[33m29c56f7[m Add user management capabilities and display additional user details
+[33mde5b734[m Published your App
+[33m0f4b767[m Published your App
+[33me36576f[m Published your App
+[33m62a8507[m Allow users to view courses without logging in
+[33m137202a[m Ensure courses page displays correctly after fixing startup port conflicts
+[33m5b494e6[m Published your App
+[33md1bc3b2[m Improve API server startup to prevent port conflicts
+[33m2ae463e[m Add a screenshot to the project for reference
+[33m5ad7859[m Improve authentication by correctly identifying and processing login tokens
+[33mb8ff220[m Add Replit authentication to the application
+[33m71446f0[m Published your App
+[33m34ddacb[m Add database URL logging to course seeding script
+[33m6f5d83e[m Published your App
+[33mb86a5d3[m Published your App
+[33mc489e21[m Fix errors when accessing leaderboard and badges
+[33mb997d13[m Update build configuration to ensure courses are accessible
+[33mf6af8b3[m Published your App
+[33m4da425a[m Ensure all students can access lessons regardless of their series
+[33m2b42723[m Add functionality to manage exam archives and reset user passwords
+[33m5cda1d2[m Enable users to upgrade to premium accounts by fixing buttons
+[33md6037a2[m Update dependencies to address security vulnerabilities
+[33m887219e[m Add comprehensive educational content to the application
+[33maa173c3[m Published your App
+[33m453a11e[m Add comprehensive admin system for managing courses and users
+[33m6b02ca2[m Published your App
+[33m149b4b0[m Add a script to seed high-quality courses for Terminale D students
+[33m7a5ae0b[m Add core backend API functionality for the educational application
+[33m6f06445[m Initial commit
