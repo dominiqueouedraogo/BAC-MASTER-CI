@@ -36,29 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var vercel_node_server_1 = require("vercel-node-server");
-var app_1 = require("./app"); // Adjust the import based on your app's structure
-// This flag ensures initialization seeding runs only once
-var isInitialized = false;
-var initSeeding = function () {
-    if (!isInitialized) {
-        // Initialization logic
-        console.log('Initialization seeding is running...');
-        // Example of initialization code
-        // ...
-        isInitialized = true;
-    }
-};
-var server = (0, vercel_node_server_1.createServer)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var react_1 = require("react");
+var client_1 = require("react-dom/client");
+var App_tsx_1 = require("./App.tsx");
+require("./index.css");
+// Intercept window.fetch to automatically inject the JWT token for API requests
+var originalFetch = window.fetch;
+window.fetch = function (input, init) { return __awaiter(void 0, void 0, void 0, function () {
+    var urlString, token, headers;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                initSeeding();
-                return [4 /*yield*/, (0, app_1.app)(req, res)];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
+        urlString = input.toString();
+        // Only intercept calls to our backend API
+        if (urlString.startsWith('/api') || urlString.startsWith('api/')) {
+            token = localStorage.getItem('bac_token');
+            if (token) {
+                init = init || {};
+                headers = new Headers(init.headers);
+                if (!headers.has('Authorization')) {
+                    headers.set('Authorization', "Bearer ".concat(token));
+                }
+                init.headers = headers;
+            }
         }
+        return [2 /*return*/, originalFetch(input, init)];
     });
-}); });
-exports.default = server;
+}); };
+(0, client_1.createRoot)(document.getElementById("root")).render(<react_1.StrictMode>
+    <App_tsx_1.default />
+  </react_1.StrictMode>);
