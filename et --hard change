@@ -1,4 +1,5 @@
-[33m8b55221[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m backup avant restauration
+[33m699c171[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m backup avant restauration
+[33m8b55221[m backup avant restauration
 [33m0c4b45a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: ignore ts errors for build
 [33m92ebc5d[m fix tsconfig for vercel
 [33m993f65e[m fix build for vercel deployment
