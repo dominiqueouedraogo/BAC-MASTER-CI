@@ -61,6 +61,9 @@ var server = (0, vercel_node_server_1.createServer)(function (req, res) { return
         }
     });
 }); });
+app.get('/test-status', (req, res) => {
+  res.json({ status: "Le serveur fonctionne enfin !", date: new Date() });
+});
 // Remplacez votre dernière ligne par ceci :
 exports.default = server;
 module.exports = server;
