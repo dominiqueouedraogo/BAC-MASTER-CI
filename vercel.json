@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "artifacts/Appi-server/api/index.js",
+      "src": "appi-server/api/index.js",
       "use": "@vercel/node"
     }
   ],
