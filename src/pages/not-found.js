@@ -1,0 +1,7 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link } from "wouter";
+import { Button } from "src/components/ui/button";
+import { FileQuestion, Home } from "lucide-react";
+export default function NotFound() {
+    return (_jsxs("div", { className: "min-h-screen w-full flex items-center justify-center bg-background p-4 relative overflow-hidden", children: [_jsx("div", { className: "absolute inset-0 bg-[url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?q=80&w=2070&auto=format&fit=crop')] opacity-[0.02] bg-cover bg-center" }), _jsxs("div", { className: "text-center relative z-10", children: [_jsx("div", { className: "w-24 h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-6", children: _jsx(FileQuestion, { className: "w-12 h-12 text-muted-foreground" }) }), _jsx("h1", { className: "text-6xl font-display font-black text-foreground mb-4", children: "404" }), _jsx("h2", { className: "text-2xl font-bold text-muted-foreground mb-8", children: "Oups ! Cette page n'existe pas." }), _jsx("p", { className: "text-muted-foreground max-w-md mx-auto mb-8", children: "Il semble que vous ayez perdu votre chemin dans vos r\u00E9visions. Retournons \u00E0 l'essentiel." }), _jsx(Link, { href: "/", children: _jsxs(Button, { size: "lg", className: "rounded-xl px-8 h-14 text-lg font-semibold gap-2", children: [_jsx(Home, { className: "w-5 h-5" }), " Retour \u00E0 l'accueil"] }) })] })] }));
+}
