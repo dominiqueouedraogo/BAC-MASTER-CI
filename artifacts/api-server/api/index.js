@@ -61,4 +61,6 @@ var server = (0, vercel_node_server_1.createServer)(function (req, res) { return
         }
     });
 }); });
+// Remplacez votre dernière ligne par ceci :
 exports.default = server;
+module.exports = server;
